@@ -1,0 +1,6 @@
+*.venv
+*.env
+*.pyc
+*__pycache__
+*manager.sqlite3*
+*creds.json

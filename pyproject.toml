@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "manager-aiogram"
+version = "0.1.0"
+description = ""
+authors = ["Akshin <57838359+akshin18@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.4.1"
+pydantic-settings = "^2.2.1"
+tortoise-orm = "^0.20.0"
+gspread = "^6.0.2"
+loguru = "^0.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

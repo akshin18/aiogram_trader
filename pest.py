@@ -1,0 +1,27 @@
+{
+    "x-pigeon-rawclienttime": "1719940738.952",
+    "x-ig-android-id": "android-MYJmDAevRYBedlyn",
+    "x-mid": "ZkOARGjEdPnfTHvqwYMUKqpgILMC",
+    "x-ig-device-id": "f651f7a2-85a1-4b88-9e40-3983bb927023",
+    "x-ig-family-device-id": "23675e92-4024-4d93-8852-0fd03c13d9dd",
+    "x-ig-capabilities": "3brTv10=",
+    "x-ig-connection-type": "WIFI",
+    "priority": "u=3",
+    "x-ig-timezone-offset": "0",
+    "x-ig-mapped-locale": "en_US",
+    "x-ig-device-locale": "en_US",
+    "x-ig-app-locale": "en_US",
+    "x-fb-server-cluster": "true",
+    "x-fb-client-ip": "true",
+    "x-fb-http-engine": "Liger",
+    "x-bloks-is-layout-rtl": "false",
+    "x-bloks-version-id": "9fc6a7a4a577456e492c189810755fe22a6300efc23e4532268bca150fe3e27a",
+    "Host": "i.instagram.com",
+    "accept-language": "en-US",
+    "authorization": "Bearer IGT:2:eyJkc191c2VyX2lkIjoiNjczMzk3NTExMDEiLCJzZXNzaW9uaWQiOiI2NzMzOTc1MTEwMSUzQVN4OHp3S0RBbVI4NlpCJTNBMTIlM0FBWWVJZzN2VmN3QlN2ak9oUWN0M3ozMHQ3V3JpR3lrVEJvUklPN0RQSXcifQ==",
+    "user-agent": "Instagram 275.0.0.27.98 Android  (Linux; U; Android 13; en_US; Pixel 7; Build/TQ2A.230405.003.E1; Cronet/TTNetVersion:2fdb62f9 2023-09-06 QuicVersion:bb24d47c 2023-07-19)",
+    "content-type": "application/json; charset=UTF-8",
+    "x-pigeon-session-id": "UFS-2c8bf6d4-1fad-4bcf-8e81-f35f5087b82e-0",
+}
+
+
