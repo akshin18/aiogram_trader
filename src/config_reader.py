@@ -4,6 +4,7 @@ from datetime import datetime
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import SecretStr
+from dotenv import load_dotenv
 from aiogram.types import Message
 from google.oauth2.service_account import Credentials
 import gspread
@@ -11,6 +12,8 @@ from gspread.cell import Cell
 from loguru import logger
 import pytz
 
+
+load_dotenv(override=True)
 
 class Settings(BaseSettings):
     BOT_TOKEN: SecretStr
@@ -150,6 +153,8 @@ class Google_sheet:
 
 
 config = Settings()
+print(config.FTM)
+print(config.FOR_PAY)
 google_sheet = Google_sheet()
 os.environ["TZ"] = "Europe/Moscow"
 TRADER_TOOLS = {
