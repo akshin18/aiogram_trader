@@ -1,9 +1,10 @@
 import asyncio
 import datetime
+import os
 import random
 
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, BufferedInputFile
 from aiogram.fsm.context import FSMContext
 from loguru import logger
 
@@ -54,7 +55,7 @@ async def trading_type_callback(callback_query: CallbackQuery):
         random_trader_tools = random.choices(TRADER_TOOLS[site]["tools"], k=5)
         user.trade_tools = "&&".join(random_trader_tools)
     await user.save()
-    await callback_query.message.answer("Выберите инструмент трейдинга:", reply_markup=get_inline_keyboard(random_trader_tools, pre="tradingtype"))
+    await callback_query.message.answer("Анализ рынка выявил 5 наилучших торговых пар:", reply_markup=get_inline_keyboard(random_trader_tools, pre="tradingtype"))
 
 
 @router.callback_query(F.data.startswith("tradingtype_"))
@@ -70,6 +71,9 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
             await send_indicator(callback_query.message, user, trade_choose_tools, 15)
             return
         await state.set_data({"tools": trade_choose_tools})
+        trade_image = TRADER_TOOLS[user.trade_type].get("image")
+        if trade_image:
+            await callback_query.message.answer_photo(trade_image)
         await callback_query.message.answer("Опции:", reply_markup=get_inline_keyboard(trade_time, pre="tradetime"))
 
 

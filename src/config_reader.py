@@ -249,7 +249,8 @@ TRADER_TOOLS = {
             "1 вариант",
             "2 вариант",
             "3 вариант",
-        ]
+        ],
+        "image": "https://i.ibb.co/Cb5nFY5/Mind-Maps-May-22-Screenshot.png",
     },
     "Digital": {
         "tools": [
@@ -273,7 +274,8 @@ TRADER_TOOLS = {
             "1 вариант",
             "2 вариант",
             "3 вариант",
-        ]
+        ],
+         "image": "https://i.ibb.co/8xy3nPq/Mind-Maps-May-22-Screenshot-1.png",
     },
     "Forex": {
         "tools": [
