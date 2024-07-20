@@ -10,7 +10,7 @@ from loguru import logger
 
 from config_reader import config, TRADER_TOOLS, time_splitter, lose_text
 from filters.filter import TraderFilter
-from utils.func import req_user, send_indicator
+from utils.func import is_auto_trade, req_user, send_indicator
 from keyboards.common import get_inline_keyboard, get_keyboard
 from db.models import User
 from utils.states import WinState
@@ -18,6 +18,7 @@ from utils.states import WinState
 
 router = Router()
 router.message.filter(TraderFilter())
+
 
 @router.message(F.text == "/start")
 async def req_handler(message: Message):
@@ -38,24 +39,35 @@ async def manual_trading_handler(message: Message):
         if not user.is_paid:
             await message.answer(config.FOR_PAY)
             return
-        await message.answer("Опции:", reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys())))
-        
+        await message.answer(
+            "Опции:", reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys()))
+        )
+
 
 @router.callback_query(F.data.in_(list(TRADER_TOOLS.keys())))
 async def trading_type_callback(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     site = callback_query.data
-    if user.trade_type == site and user.trade_choose_time is not None and user.trade_choose_time > datetime.datetime.now(datetime.UTC):
+    if (
+        user.trade_type == site
+        and user.trade_choose_time is not None
+        and user.trade_choose_time > datetime.datetime.now(datetime.UTC)
+    ):
         random_trader_tools = user.trade_tools.split("&&")
     else:
         logger.debug(user.trade_choose_time)
         user.trade_type = site
-        user.trade_choose_time = datetime.datetime.now(datetime.UTC) + datetime.timedelta(seconds=10*60)
+        user.trade_choose_time = datetime.datetime.now(
+            datetime.UTC
+        ) + datetime.timedelta(seconds=10 * 60)
         random_trader_tools = random.choices(TRADER_TOOLS[site]["tools"], k=5)
         user.trade_tools = "&&".join(random_trader_tools)
     await user.save()
-    await callback_query.message.answer("Анализ рынка выявил 5 наилучших торговых пар:", reply_markup=get_inline_keyboard(random_trader_tools, pre="tradingtype"))
+    await callback_query.message.answer(
+        "Анализ рынка выявил 5 наилучших торговых пар:",
+        reply_markup=get_inline_keyboard(random_trader_tools, pre="tradingtype"),
+    )
 
 
 @router.callback_query(F.data.startswith("tradingtype_"))
@@ -74,7 +86,9 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
         trade_image = TRADER_TOOLS[user.trade_type].get("image")
         if trade_image:
             await callback_query.message.answer_photo(trade_image)
-        await callback_query.message.answer("Опции:", reply_markup=get_inline_keyboard(trade_time, pre="tradetime"))
+        await callback_query.message.answer(
+            "Опции:", reply_markup=get_inline_keyboard(trade_time, pre="tradetime")
+        )
 
 
 @router.callback_query(F.data.startswith("tradetime_"))
@@ -88,12 +102,25 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
         await user.save()
         data = await state.get_data()
         trade_tools = data["tools"]
-        await send_indicator(callback_query.message, user, trade_tools, trade_time, callback_query.data.split("_", maxsplit=1)[1])
+        await send_indicator(
+            callback_query.message,
+            user,
+            trade_tools,
+            trade_time,
+            callback_query.data.split("_", maxsplit=1)[1],
+        )
 
 
 @router.message(F.text == "Управляемый трейдинг")
 async def manual_trading_handler(message: Message):
-    ...
+    user = await User.get_or_none(user_id=message.from_user.id)
+    user.trade_mode = 1
+    await user.save()
+    inline_keyboard = get_inline_keyboard(["10 минут (2 сигнала)", "20 минут (4 сигнала)", "30 минут Рекомендация! (5 сигналов)"], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
+    await message.answer(
+        "Выберите сколько у вас есть времени для торговой сессии? (с суммой депозита до 50 бакс вы можете использовать бота 2 раз в сутки)",
+        reply_markup=inline_keyboard
+    )
 
 
 @router.callback_query(F.data == "Выигрыш")
@@ -106,33 +133,54 @@ async def win_handler(callback_query: CallbackQuery, state: FSMContext):
 @router.message(WinState.win)
 async def win_count_handler(message: Message, state: FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
+    user.state = 2
+    await user.save()
     await state.clear()
     if user:
-        await message.answer("Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]))
+        if not await is_auto_trade(user, message):
+            await message.answer(
+                "Меню:",
+                reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+            )
 
 
 @router.callback_query(F.data == "Проигрыш")
 async def win_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
+    user.state = 2
     if user:
-        if user.lose_count >= 2:
-            await callback_query.message.answer(lose_text, reply_markup=get_inline_keyboard("Я подтверждаю обновление страницы Экснова и выбор новой пары для трейдинга !", custom=["agree_lose"]))
-        else:
-            user.lose_count += 1
-            await user.save()
-            await callback_query.message.answer("Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]))
+        if not await is_auto_trade(user, callback_query.message):
+            if user.lose_count >= 2:
+                await callback_query.message.answer(
+                    lose_text,
+                    reply_markup=get_inline_keyboard(
+                        "Я подтверждаю обновление страницы Экснова и выбор новой пары для трейдинга !",
+                        custom=["agree_lose"],
+                    ),
+                )
+            else:
+                user.lose_count += 1
+                await callback_query.message.answer(
+                    "Меню:",
+                    reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+                )
+    await user.save()
 
 
 @router.callback_query(F.data == "agree_lose")
 async def agree_lose_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
-    await callback_query.message.answer("Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]))
+    await callback_query.message.answer(
+        "Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
+    )
 
 
 @router.message(F.text == "Назад в Меню")
 async def go_to_menu(callback_query: CallbackQuery):
-    await callback_query.message.answer("Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]))
+    await callback_query.message.answer(
+        "Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
+    )
 
 
 @router.message()
@@ -145,7 +193,51 @@ async def message_handler(message: Message):
             await user.save()
             await message.answer(config.FTM)
             await asyncio.sleep(3)
-            await message.answer("Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]))
+            await message.answer(
+                "Меню:",
+                reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+            )
         if user.state == 2:
             menu = get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
             await message.answer("Меню:", reply_markup=menu)
+
+
+@router.callback_query(F.data.in_(["auto_time_2", "auto_time_4", "auto_time_5"]))
+async def handle_trader_time_auto(callback_query: CallbackQuery):
+    await callback_query.message.delete()
+    user = await User.get_or_none(user_id=callback_query.from_user.id)
+    if user:
+        auto_trade_count = callback_query.data.split("auto_time_")[-1]
+        random_trade_type = random.choice(list(TRADER_TOOLS.keys()))
+        random_trade_tool = random.choice(TRADER_TOOLS[random_trade_type]['tools'])
+        trade_time = TRADER_TOOLS[random_trade_type].get('time')
+        if trade_time and len(trade_time) > 3:
+            random_trade_time_str = random.choice(trade_time)
+        else:
+            random_trade_time_str = "15 секунд"
+        user.trade_type = random_trade_type
+        user.trade_tools = random_trade_tool
+        user.trade_time = random_trade_time_str
+        user.auto_trade_choose_count = int(auto_trade_count)
+        user.auto_trade_count = 1
+        user.trade_mode = 1
+        await user.save()
+        text = f"""Выберите торговую пару :
+{random_trade_tool}
+В опции: {random_trade_type}
+Время эксперации: {random_trade_time_str}
+Платформа : ExNova"""
+        inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
+        await callback_query.message.answer(text, reply_markup=inline_keyboard)
+
+
+@router.callback_query(F.data == "agree_auto_trade")
+async def handle_trader_agree_auto(callback_query: CallbackQuery):
+    await callback_query.message.delete()
+    user = await User.get_or_none(user_id=callback_query.from_user.id)
+    if user:
+        await user.save()
+        trade_time = time_splitter[user.trade_time]
+        await send_indicator(callback_query.message, user, user.trade_tools, trade_time, user.trade_time)
+        
+        

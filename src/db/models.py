@@ -17,6 +17,9 @@ class User(Model):
     trade_choose_time = fields.DatetimeField(null=True)
     trade_start_time = fields.DatetimeField(null=True)
     trade_choose_tools = fields.CharField(max_length=100, null=True)
+    trade_mode = fields.IntField(null=True, default=0)
+    auto_trade_count = fields.IntField(null=True, default=0)
+    auto_trade_choose_count = fields.IntField(null=True, default=0)
 
     
     name = fields.CharField(max_length=50, null=True)

@@ -15,6 +15,11 @@ loguru = "^0.7.2"
 python-dotenv = "^1.0.1"
 
 
+
+[tool.aerich]
+tortoise_orm = "src.db.database.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

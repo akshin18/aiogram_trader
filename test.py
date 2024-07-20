@@ -180,3 +180,22 @@
 # with open("a.txt", "w") as f:
 #     f.write(r.text)
 
+
+class A:
+    def __init__(self):
+        self.a = 1
+
+    def com(self):
+        print("a")
+    
+    def do(self):
+        self.com()
+
+class B(A):
+    def __init__(self):
+        self.do()
+    
+    def com(self):
+        print("b")
+
+B()
