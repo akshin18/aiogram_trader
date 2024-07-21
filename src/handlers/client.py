@@ -8,7 +8,7 @@ from aiogram.types import Message, CallbackQuery, BufferedInputFile
 from aiogram.fsm.context import FSMContext
 from loguru import logger
 
-from config_reader import config, TRADER_TOOLS, time_splitter, lose_text
+from config_reader import config, TRADER_TOOLS, time_splitter, lose_text, google_sheet
 from filters.filter import TraderFilter
 from utils.func import is_auto_trade, req_user, send_indicator
 from keyboards.common import get_inline_keyboard, get_keyboard
@@ -33,10 +33,16 @@ async def get_id(message: Message):
 @router.message(F.text == "Ручной трейдинг")
 async def manual_trading_handler(message: Message):
     user = await User.get_or_none(user_id=message.from_user.id)
+    user.manual_click_count += 1
+    await user.save()
+    google_sheet.update_manual_trading(user.user_id, user.manual_click_count)
     if user:
         if user.state == 3:
             return
         if not user.is_paid:
+            user.top_up_date = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
+            await user.save()
+            google_sheet.update_top_up(user.user_id, user.top_up_date)
             await message.answer(config.FOR_PAY)
             return
         await message.answer(
@@ -115,7 +121,9 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
 async def manual_trading_handler(message: Message):
     user = await User.get_or_none(user_id=message.from_user.id)
     user.trade_mode = 1
+    user.auto_click_count += 1
     await user.save()
+    google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
     inline_keyboard = get_inline_keyboard(["10 минут (2 сигнала)", "20 минут (4 сигнала)", "30 минут Рекомендация! (5 сигналов)"], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
     await message.answer(
         "Выберите сколько у вас есть времени для торговой сессии? (с суммой депозита до 50 бакс вы можете использовать бота 2 раз в сутки)",
@@ -134,7 +142,9 @@ async def win_handler(callback_query: CallbackQuery, state: FSMContext):
 async def win_count_handler(message: Message, state: FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
     user.state = 2
+    user.win_count += 1
     await user.save()
+    google_sheet.update_win_count(user.user_id, user.win_count, )
     await state.clear()
     if user:
         if not await is_auto_trade(user, message):
@@ -149,6 +159,8 @@ async def win_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     user.state = 2
+    user.last_lose_count += 1
+    google_sheet.update_lose_win_count(user.user_id, user.win_count - user.last_lose_count)
     if user:
         if not await is_auto_trade(user, callback_query.message):
             if user.lose_count >= 2:

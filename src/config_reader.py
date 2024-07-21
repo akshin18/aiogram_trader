@@ -48,108 +48,63 @@ class Google_sheet:
         start_date,
         start_time,
         user_id,
-        chat_id,
-        link,
         bot_is_active,
-        fm_date="",
-        fm_time="",
-        finish_date="",
-        finish_time="",
         username="",
     ):
         data = [
             start_date,
             start_time,
-            fm_date,
-            fm_time,
             user_id,
             username,
-            chat_id,
-            link,
             bot_is_active,
-            finish_date,
-            finish_time,
         ]
         self.sheet.append_row(data, table_range="A1")
 
-    def update_fm(self, user_id):
-        now = datetime.now(self.moscow_timezone)
+    def update_manual_trading(self, user_id, number):
         try:
-            # self.sheet.update_cell(self.sheet.find(str(user_id)).row, 2, now)
-            self.sheet.update_cells(
-                [
-                    Cell(
-                        self.sheet.find(str(user_id)).row, 3, now.strftime("%d/%m/%Y")
-                    ),
-                    Cell(self.sheet.find(str(user_id)).row, 4, now.strftime("%H:%M")),
-                ]
-            )
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 8, number)
         except Exception as e:
             logger.error(f"update error {e}")
 
-    def update_finish(self, user_id):
-        now = datetime.now(self.moscow_timezone)
+    def update_auto_trading(self, user_id, number):
         try:
-            # self.sheet.update_cell(self.sheet.find(str(user_id)).row, 8, now)
-            self.sheet.update_cells(
-                [
-                    Cell(
-                        self.sheet.find(str(user_id)).row, 10, now.strftime("%d/%m/%Y")
-                    ),
-                    Cell(self.sheet.find(str(user_id)).row, 11, now.strftime("%H:%M")),
-                ]
-            )
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 9, number)
+        except Exception as e:
+            logger.error(f"update error {e}")
+    
+    def update_top_up(self, user_id, number):
+        try:
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 10, number)
         except Exception as e:
             logger.error(f"update error {e}")
 
-    def update_active(self, user_id):
+    def update_indecator_count(self, user_id, number):
         try:
-            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 9, "FALSE")
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 11, number)
         except Exception as e:
             logger.error(f"update error {e}")
+    
+    def update_win_count(self, user_id, number):
+        try:
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 12, number)
+        except Exception as e:
+            logger.error(f"update error {e}")
+    
+    def update_lose_win_count(self, user_id, number):
+        try:
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 13, number)
+        except Exception as e:
+            logger.error(f"update error {e}")
+    
+    def update_win_amount(self, user_id, number):
+        try:
+            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 14, number)
+        except Exception as e:
+            logger.error(f"update error {e}")
+    
 
-    def reg(self, user_id, reg_id):
-        now = datetime.now(self.moscow_timezone)
-        try:
-            self.sheet.update_cells(
-                [
-                    Cell(self.sheet.find(str(user_id)).row, 12, "yes"),
-                    Cell(
-                        self.sheet.find(str(user_id)).row, 13, now.strftime("%d/%m/%Y")
-                    ),
-                    Cell(self.sheet.find(str(user_id)).row, 14, now.strftime("%H:%M")),
-                    Cell(self.sheet.find(str(user_id)).row, 20, reg_id),
-                ]
-            )
-        except Exception as e:
-            logger.error(f"update error {e}")
-
-    def dep(self, user_id):
-        now = datetime.now(self.moscow_timezone)
-        try:
-            self.sheet.update_cells(
-                [
-                    Cell(self.sheet.find(str(user_id)).row, 15, "yes"),
-                    Cell(
-                        self.sheet.find(str(user_id)).row, 16, now.strftime("%d/%m/%Y")
-                    ),
-                    Cell(self.sheet.find(str(user_id)).row, 17, now.strftime("%H:%M")),
-                ]
-            )
-        except Exception as e:
-            logger.error(f"update error {e}")
-
-    def geo(self, user_id, geo):
-        try:
-            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 19, geo)
-        except Exception as e:
-            logger.error(f"update error {e}")
-
-    def auto(self, user_id):
-        try:
-            self.sheet.update_cell(self.sheet.find(str(user_id)).row, 18, "auto")
-        except Exception as e:
-            logger.error(f"update error {e}")
+    
+    
 
 
 config = Settings()

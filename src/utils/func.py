@@ -31,6 +31,9 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
     elif user.state == 2:
         menu = get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
         await message.answer("Меню:", reply_markup=menu)
+    if created:
+        now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
+        google_sheet.create_user(now, now, user.user_id, True, user.username)
 
 
 
@@ -56,6 +59,8 @@ async def set_paid(user_id: int):
 
 
 async def send_indicator(message: Message, user: User, trade_tools: str, trade_time: int, trade_time_str: str = "15 секунд"):
+    user.signals_count += 1
+    google_sheet.update_indecator_count(user.user_id, user.signals_count)
     text = indicator_form % (trade_tools, trade_time_str, random.choice(["Понижение📉", "Повышение📈"]))
     user.state = 3
     trade_delay = (trade_time + 15)

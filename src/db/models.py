@@ -28,3 +28,10 @@ class User(Model):
 
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
+
+    manual_click_count = fields.IntField(null=True, default=0)
+    auto_click_count = fields.IntField(null=True, default=0)
+    top_up_date = fields.CharField(max_length=100, null=True)
+    signals_count = fields.IntField(null=True, default=0)
+    win_count = fields.IntField(null=True, default=0)
+    last_lose_count = fields.IntField(null=True, default=0)
