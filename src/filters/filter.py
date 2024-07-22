@@ -21,5 +21,5 @@ class TraderFilter(BaseFilter):
                 await message.answer("Пока ваша торговля не окончена вы не можете использовать новые сигналы!")
             else:
                 await message.message.answer("Пока ваша торговля не окончена вы не можете использовать новые сигналы!")
-        return False
-            
+            return False
+        return True

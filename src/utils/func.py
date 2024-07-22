@@ -18,7 +18,10 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         username=message.from_user.username,
         user_id=message.from_user.id,
     )
-    # add_user_to_sheet(user)
+    if created:
+        logger.info(f"New user: {user.name}")
+        now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
+        google_sheet.create_user(now, now, user.user_id, True, user.username)
     if user.state == 0:
         await message.answer(f"Подпишитесь на канал (напишите мне в личку: {message.from_user.id} , я выдам доступ)")
         return
@@ -31,9 +34,7 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
     elif user.state == 2:
         menu = get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
         await message.answer("Меню:", reply_markup=menu)
-    if created:
-        now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
-        google_sheet.create_user(now, now, user.user_id, True, user.username)
+    
 
 
 

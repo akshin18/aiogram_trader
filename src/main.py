@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from tortoise import Tortoise
+from loguru import logger
 
 from handlers.admin import router as admin_router
 from handlers.client import router as client_router
@@ -34,4 +35,5 @@ async def main():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
+    logger.info(f"{config.SHEET_ID.get_secret_value()=}")
     asyncio.run(main())
