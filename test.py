@@ -181,21 +181,22 @@
 #     f.write(r.text)
 
 
-class A:
-    def __init__(self):
-        self.a = 1
 
-    def com(self):
-        print("a")
-    
-    def do(self):
-        self.com()
 
-class B(A):
-    def __init__(self):
-        self.do()
-    
-    def com(self):
-        print("b")
 
-B()
+a = """AUS 200 OTC
+ 100GBP OTC
+ D30EUR OTC
+ DJI30 OTC
+ E35EUR OTC
+ E50EUR OTC
+ F40EUR OTC
+ JPN225 OTC
+ US100 OTC
+ SP500 OTC"""
+
+v = []
+for i in a.split("\n"):
+    v.append(i.strip())
+
+print(v)

@@ -15,6 +15,7 @@ import pytz
 
 load_dotenv(override=True)
 
+
 class Settings(BaseSettings):
     BOT_TOKEN: SecretStr
     DB_URL: SecretStr
@@ -71,7 +72,7 @@ class Google_sheet:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 9, number)
         except Exception as e:
             logger.error(f"update error {e}")
-    
+
     def update_top_up(self, user_id, number):
         try:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 10, number)
@@ -83,28 +84,24 @@ class Google_sheet:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 11, number)
         except Exception as e:
             logger.error(f"update error {e}")
-    
+
     def update_win_count(self, user_id, number):
         try:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 12, number)
         except Exception as e:
             logger.error(f"update error {e}")
-    
+
     def update_lose_win_count(self, user_id, number):
         try:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 13, number)
         except Exception as e:
             logger.error(f"update error {e}")
-    
+
     def update_win_amount(self, user_id, number):
         try:
             self.sheet.update_cell(self.sheet.find(str(user_id)).row, 14, number)
         except Exception as e:
             logger.error(f"update error {e}")
-    
-
-    
-    
 
 
 config = Settings()
@@ -113,34 +110,63 @@ print(config.FOR_PAY)
 google_sheet = Google_sheet()
 os.environ["TZ"] = "Europe/Moscow"
 TRADER_TOOLS = {
-    "Blitz": {
+    "Валюты": {
         "tools": [
-            "USD/BRL (OTC)",
-            "EUR/USD (OTC)",
-            "US 100 (OTC)",
-            "EUR/JPY (OTC)",
-            "AUD/CAD (OTC)",
-            "BTC/USD (OTC)",
-            "EUR/GBP (OTC)",
-            "US 30 (OTC)",
-            "PEN/USD (OTC)",
-            "USD/MXN (OTC)",
-            "USOUSD (OTC)",
-            "XAUUSD (OTC)",
-            "Tesla (OTC)",
-            "Apple (OTC)",
-            "Amazon (OTC)",
-            "Google (OTC)",
-            "CARDANO (OTC)",
-            "XAGUSD (OTC)",
-            "US 500 (OTC)",
-            "DOGECOIN (OTC)",
-            "Meta (OTC)",
-            "SOL/USD (OTC)",
-            "UKOUSD (OTC)",
-            "TRON/USD (OTC)",
+            "AED/CNY OTC",
+            "AUD/CAD OTC",
+            "AUD/NZD OTC",
+            "AUD/USD OTC",
+            "CAD/CHF OTC",
+            "CAD/JPY OTC",
+            "EUR/CHF OTC",
+            "EUR/GBP OTC",
+            "EUR/TRY OTC",
+            "GBP/AUD OTС",
+            "GBP/JPY OTC",
+            "JOD/CNY OTC",
+            "LBP/USD OTC",
+            "MAD/USD OTC",
+            "SAR/CNY OTC",
+            "USD/BRL OTC",
+            "USD/CNH OTC",
+            "USD/COP OTC",
+            "USD/DZD OTC",
+            "USD/INR OTC",
+            "USD/JPY OTC",
+            "USD/MXN OTC",
+            "USD/MYR OTC",
+            "USD/PKR OT",
+            "USD/RUB OTC",
+            "USD/SGD OTC",
+            "USD/THB OTC",
+            "CHF/NOK OTC",
+            "EUR/HUF OTC",
+            "EUR/JPY OTC",
+            "TND/USD OTC",
+            "YER/USD OTС",
+            "USD/VND OTC",
+            "GBP/USD OTC",
+            "USD/CAD OTC",
+            "QAR/CNY OTC",
+            "EUR/NZD OTC",
+            "USD/IDR OTC",
+            "BHD/CNY OTC",
+            "EUR/RUB OTC",
+            "USD/BDT OTC",
+            "USD/EGP OTC",
+            "NZD/USD OTC",
+            "EUR/USD OTC",
+            "USD/CLP OTC",
+            "AUD/JPY OTC",
+            "USD/ARS OTC",
+            "USD/PHP OTC",
+            "OMR/CNY OTС",
+            "CHF/JPY OTC",
+            "NZD/JPY OTC",
+            "AUD/CHF OTC",
+            "USD/CHF OTC",
         ],
-        "time":[
+        "time": [
             "5 секунд",
             "15 секунд",
             "30 секунд",
@@ -148,147 +174,112 @@ TRADER_TOOLS = {
             "5 минуты",
             "10 минуты",
             "15 минуты",
-        ]
+        ],
     },
-    "Binary": {
+    "Криптовалюты": {
         "tools": [
-            "AUD/JPY",
-            "EUR/JPY",
-            "EUR/USD",
-            "AUD/CAD",
-            "AUD/USD",
-            "AMAZON",
-            "MCDON",
-            "COKE",
-            "CITI",
-            "INTEL",
-            "BAIDU",
-            "TESLA",
-            "JPM",
-            "GOOGLE",
-            "MORSTAN",
-            "MSFT",
-            "Meta",
-            "ALIBABA",
-            "GS",
-            "NIKE",
-            "APPLE",
-            "GBP/USD",
-            "CAD/CHF",
-            "USD/CHF",
-            "EUR/JPY (OTC)",
-            "EUR/GBP (OTC)",
-            "AUD/CAD (OTC)",
-            "NZD/USD (OTC)",
-            "EUR/USD (OTC)",
-            "GBP/USD (OTC)",
-            "USD/CHF (OTC)",
-            "EUR/GBP",
-            "USD/JPY",
-            "GBP/JPY",
-            "USD/CAD",
-            "USD/JPY (OTC)",
-            "GBP/JPY (OTC)",
-            "NZD/USD (OTC)",
-            "EUR/USD (OTC)",
-            "GBP/USD (OTC)",
-            "USD/CHF (OTC)",
-            "FUR/GBP",
-            "USD/JPY",
-            "GBP/JPY",
-            "USD/CAD",
-            "USD/JPY (OTC)",
-            "GBP/JPY (OTC)",
+            "Cardano OTС",
+            "Avalanche OTC",
+            "Bitcoin ETF OTC",
+            "Chainlink OTC",
+            "Polygon OTC",
+            "Toncoin OTC",
+            "TRON OTC",
+            "Ethereum OTC",
+            "Bitcoin OTC",
+            "Ripple OTC",
+            "Litecoin OTC",
+            "BNB OTC",
+            "Solana OTC",
+            "Polkadot OTC",
+            "Dogecoin OTC",
         ],
-        "time":[
-            "1 вариант",
-            "2 вариант",
-            "3 вариант",
+        "time": [
+            "5 секунд",
+            "15 секунд",
+            "30 секунд",
+            "1 минута",
+            "5 минуты",
+            "10 минуты",
+            "15 минуты",
         ],
-        "image": "https://i.ibb.co/Cb5nFY5/Mind-Maps-May-22-Screenshot.png",
+        "image": "",
     },
-    "Digital": {
+    "Сырьевые товары": {
         "tools": [
-            "EUR/USD",
-            "EUR/JPY",
-            "GBP/USD",
-            "GBP/JPY",
-            "AUD/USD",
-            "USD/CAD",
-            "AUD/CAD",
-            "US 100",
-            "US 500",
-            "US 30",
-            "GBP/USD (OTC)",
-            "NZD/USD (OTC)",
-            "USD/CHF (OTC)",
-            "AUD/JPY",
-            "USD/CHF",
+            "Brent Oil OTC",
+            "WTI Crude Oil OTC",
+            "Silver OTC",
+            "Gold OTC",
+            "Natural Gas OTC",
+            "Palladium spot OTC",
+            "Platinum spot OTC",
         ],
-        "time":[
-            "1 вариант",
-            "2 вариант",
-            "3 вариант",
+        "time": [
+            "5 секунд",
+            "15 секунд",
+            "30 секунд",
+            "1 минута",
+            "5 минуты",
+            "10 минуты",
+            "15 минуты",
         ],
-         "image": "https://i.ibb.co/8xy3nPq/Mind-Maps-May-22-Screenshot-1.png",
+        "image": "",
     },
-    "Forex": {
+    "Акции": {
         "tools": [
-            "EUR/USD",
-            "USD/JPY",
-            "AUD/USD",
-            "EUR/JPY",
-            "GBP/USD",
-            "AUD/JPY",
-            "GBP/JPY",
-            "AUD/CAD",
-            "USD/CAD",
-            "EUR/GBP",
-            "USD/JPY×1000",
-            "EUR/AUD",
-            "CHF/JPY",
-            "EUR/NZD",
-            "AUD/CHF",
-            "AUD/NZD",
-            "EUR/JPYx1000",
-            "EUR/CAD",
-            "CAD/CHF",
-            "GBP/CAD",
-            "NZD/CAD",
-            "CAD/JPY",
-            "EUR/CHF",
-            "USD/ZAR",
-            "GBP/USDx1000",
-            "USD/CHFx1000",
-            "NZD/CHE",
-            "GBP/AUD",
-            "NZD/JPY",
-            "NOK/JPY",
-            "EUR/ZAR",
-            "CHF/NOK",
-            "GBP/CHF",
-            "EUR/NOK",
+            "Apple OTC",
+            "American Express OTC",
+            "Intel OTC",
+            "Pfizer Inc OTC",
+            "Citigroup Inc OTC",
+            "TWITTER OTC",
+            "McDonald's OTC",
+            "VISA OTC",
+            "Microsoft OTC",
+            "Alibaba OTC",
+            "Johnson & Johnson OTС",
+            "Cisco OTC",
+            "Boeing Company OTC",
+            "Amazon OTC",
+            "FedEx OTC",
+            "Tesla OTC",
+            "ExxonMobil OTC",
+            "Netflix OTC",
+            "FACEBOOK INC OTC",
         ],
-        "time":[]
+        "time": [
+            "5 секунд",
+            "15 секунд",
+            "30 секунд",
+            "1 минута",
+            "5 минуты",
+            "10 минуты",
+            "15 минуты",
+        ],
     },
-    "Crypto": {
+    "Индексы": {
         "tools": [
-            "Bitcoin",
-            "Pepe ×20",
-            "EOS",
-            "OmiseGo",
-            "Bitcoin ×100",
-            "Dash",
-            "Bitcoin ×1000",
-            "Ethereum",
-            "Ethereum Classic",
-            "Ripple",
-            "ZCash",
-            "Litecoin",
-            "Qtum",
-            "TRON",
+            "AUS 200 OTC",
+            "100GBP OTC",
+            "D30EUR OTC",
+            "DJI30 OTC",
+            "E35EUR OTC",
+            "E50EUR OTC",
+            "F40EUR OTC",
+            "JPN225 OTC",
+            "US100 OTC",
+            "SP500 OTC",
         ],
-        "time":[]
+        "time": [
+            "5 секунд",
+            "15 секунд",
+            "30 секунд",
+            "1 минута",
+            "5 минуты",
+            "10 минуты",
+            "15 минуты",
+        ],
     },
 }
 
@@ -297,9 +288,9 @@ time_splitter = {
     "15 секунд": 15,
     "30 секунд": 30,
     "1 минута": 60,
-    "5 минуты": 60*5,
-    "10 минуты": 60*10,
-    "15 минуты": 60*15,
+    "5 минуты": 60 * 5,
+    "10 минуты": 60 * 10,
+    "15 минуты": 60 * 15,
 }
 
 indicator_form = """💱Валютная пара:(%s)\n⏳Время эксперации:(%s)\n\n\n✅ Бот рекомендует открывать торги на %s \nВремя на использование сигнала 15 секунд"""
