@@ -17,7 +17,7 @@ async def activate_handler(message: Message):
         user_id = int(message.text.split(" ")[1])
         await set_subscribed(user_id)
         await message.answer(f"Пользователь {user_id} активирован")
-        await message.bot.send_message(user_id, "Отправьте ваш ид пользователя Exnova в таком формате: 123456789")
+        await message.bot.send_message(user_id, "Отправьте ваш ид пользователя в таком формате: 123456789")
     except:
         await message.answer("Не правильный user_id")
 

@@ -85,7 +85,7 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
         trade_choose_tools = callback_query.data.split("_", maxsplit=1)[1]
         user.trade_choose_tools = trade_choose_tools
         await user.save()
-        if not trade_time:
+        if not trade_time and user.state == 2:
             await send_indicator(callback_query.message, user, trade_choose_tools, 15)
             return
         await state.set_data({"tools": trade_choose_tools})
@@ -101,17 +101,18 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
 async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
-    if user:
+    if user and user.state == 2:
         time_str = callback_query.data.split("_", maxsplit=1)[1]
         trade_time = time_splitter.get(time_str, 15)
         user.trade_time = time_str
-        await user.save()
         data = await state.get_data()
-        trade_tools = data["tools"]
+        trade_choose_tools = data["tools"]
+        user.trade_choose_tools = trade_choose_tools
+        await user.save()
         await send_indicator(
             callback_query.message,
             user,
-            trade_tools,
+            trade_choose_tools,
             trade_time,
             callback_query.data.split("_", maxsplit=1)[1],
         )
@@ -120,22 +121,25 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
 @router.message(F.text == "Управляемый трейдинг")
 async def manual_trading_handler(message: Message):
     user = await User.get_or_none(user_id=message.from_user.id)
-    user.trade_mode = 1
-    user.auto_click_count += 1
-    await user.save()
-    google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
-    inline_keyboard = get_inline_keyboard(["10 минут (2 сигнала)", "20 минут (4 сигнала)", "30 минут Рекомендация! (5 сигналов)"], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
-    await message.answer(
-        "Выберите сколько у вас есть времени для торговой сессии? (с суммой депозита до 50 бакс вы можете использовать бота 2 раз в сутки)",
-        reply_markup=inline_keyboard
-    )
+    if user:
+        user.trade_mode = 1
+        user.auto_click_count += 1
+        await user.save()
+        google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
+        inline_keyboard = get_inline_keyboard(["10 минут (2 сигнала)", "20 минут (4 сигнала)", "30 минут Рекомендация! (5 сигналов)"], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
+        await message.answer(
+            "Выберите сколько у вас есть времени для торговой сессии? (с суммой депозита до 50 бакс вы можете использовать бота 2 раз в сутки)",
+            reply_markup=inline_keyboard
+        )
 
 
 @router.callback_query(F.data == "Выигрыш")
 async def win_handler(callback_query: CallbackQuery, state: FSMContext):
-    await callback_query.message.delete()
-    await state.set_state(WinState.win)
-    await callback_query.message.answer("Напишите сумму выигрыша")
+    user = await User.get_or_none(user_id=callback_query.from_user.id)
+    if user and user.state == 4:
+        await callback_query.message.delete()
+        await state.set_state(WinState.win)
+        await callback_query.message.answer("Напишите сумму выигрыша")
 
 
 @router.message(WinState.win)
@@ -158,16 +162,16 @@ async def win_count_handler(message: Message, state: FSMContext):
 async def win_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
-    user.state = 2
-    user.last_lose_count += 1
-    google_sheet.update_lose_win_count(user.user_id, user.win_count - user.last_lose_count)
-    if user:
+    if user and user.state == 4:
+        user.state = 2
+        user.last_lose_count += 1
+        google_sheet.update_lose_win_count(user.user_id, user.win_count - user.last_lose_count)
         if not await is_auto_trade(user, callback_query.message):
             if user.lose_count >= 2:
                 await callback_query.message.answer(
                     lose_text,
                     reply_markup=get_inline_keyboard(
-                        "Я подтверждаю обновление страницы Экснова и выбор новой пары для трейдинга !",
+                        "Я подтверждаю обновление страницы и выбор новой пары для трейдинга !",
                         custom=["agree_lose"],
                     ),
                 )
@@ -177,7 +181,7 @@ async def win_handler(callback_query: CallbackQuery):
                     "Меню:",
                     reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
                 )
-    await user.save()
+        await user.save()
 
 
 @router.callback_query(F.data == "agree_lose")
@@ -237,8 +241,7 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
         text = f"""Выберите торговую пару :
 {random_trade_tool}
 В опции: {random_trade_type}
-Время эксперации: {random_trade_time_str}
-Платформа : ExNova"""
+Время эксперации: {random_trade_time_str}"""
         inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
         await callback_query.message.answer(text, reply_markup=inline_keyboard)
 
@@ -248,8 +251,8 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user:
-        await user.save()
         trade_time = time_splitter[user.trade_time]
-        await send_indicator(callback_query.message, user, user.trade_tools, trade_time, user.trade_time)
+        if user.state == 2:
+            await send_indicator(callback_query.message, user, user.trade_choose_tools, trade_time, user.trade_time)
         
         

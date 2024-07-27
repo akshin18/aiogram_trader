@@ -27,7 +27,7 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         return
     elif user.state == 1:
         if not user.trader_id:
-            await message.answer("Отправьте ваш ид пользователя Exnova в таком формате: 123456789")
+            await message.answer("Отправьте ваш ид пользователя в таком формате: 123456789")
         else:
             user.state = 2
             await user.save()
@@ -97,25 +97,26 @@ async def generate_random_trade(user: User, message: Message):
     else:
         random_trade_time_str = "15 секунд"
     user.trade_type = random_trade_type
-    user.trade_tools = random_trade_tool
+    user.trade_choose_tools = random_trade_tool
     user.trade_time = random_trade_time_str
     user.auto_trade_count += 1
     await user.save()
     text = f"""Выберите торговую пару :
 {random_trade_tool}
 В опции: {random_trade_type}
-Время эксперации: {random_trade_time_str}
-Платформа : ExNova"""
+Время эксперации: {random_trade_time_str}"""
     inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
     await message.answer(text, reply_markup=inline_keyboard)
 
 async def is_auto_trade(user: User, message: Message):
     if user.trade_mode == 1:
         if user.auto_trade_count < user.auto_trade_choose_count:
-            user.state = 3
             user.trade_start_time += datetime.timedelta(minutes=3)
+            user.state = 5
             await user.save()
-            await asyncio.sleep(60*2)
+            await asyncio.sleep(60)
+            user.state = 2
+            await user.save()
             await generate_random_trade(user, message)
             return True
         user.auto_trade_choose_count = 0

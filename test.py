@@ -181,22 +181,20 @@
 #     f.write(r.text)
 
 
+# a = """AUS 200 OTC
+#  100GBP OTC
+#  D30EUR OTC
+#  DJI30 OTC
+#  E35EUR OTC
+#  E50EUR OTC
+#  F40EUR OTC
+#  JPN225 OTC
+#  US100 OTC
+#  SP500 OTC"""
 
+# v = []
+# for i in a.split("\n"):
+#     v.append(i.strip())
 
+# print(v)
 
-a = """AUS 200 OTC
- 100GBP OTC
- D30EUR OTC
- DJI30 OTC
- E35EUR OTC
- E50EUR OTC
- F40EUR OTC
- JPN225 OTC
- US100 OTC
- SP500 OTC"""
-
-v = []
-for i in a.split("\n"):
-    v.append(i.strip())
-
-print(v)
