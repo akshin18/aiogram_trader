@@ -105,6 +105,15 @@ class Google_sheet:
 
 
 config = Settings()
+tiime_options = [
+            "5 секунд",
+            "15 секунд",
+            "30 секунд",
+            "1 минута",
+            "5 минуты",
+            "10 минуты",
+            "15 минуты",
+        ]
 print(config.FTM)
 print(config.FOR_PAY)
 google_sheet = Google_sheet()
@@ -166,15 +175,7 @@ TRADER_TOOLS = {
             "AUD/CHF OTC",
             "USD/CHF OTC",
         ],
-        "time": [
-            "5 секунд",
-            "15 секунд",
-            "30 секунд",
-            "1 минута",
-            "5 минуты",
-            "10 минуты",
-            "15 минуты",
-        ],
+        "time": tiime_options,
     },
     "Криптовалюты": {
         "tools": [
@@ -194,15 +195,7 @@ TRADER_TOOLS = {
             "Polkadot OTC",
             "Dogecoin OTC",
         ],
-        "time": [
-            "5 секунд",
-            "15 секунд",
-            "30 секунд",
-            "1 минута",
-            "5 минуты",
-            "10 минуты",
-            "15 минуты",
-        ],
+        "time": tiime_options,
         "image": "",
     },
     "Сырьевые товары": {
@@ -215,15 +208,7 @@ TRADER_TOOLS = {
             "Palladium spot OTC",
             "Platinum spot OTC",
         ],
-        "time": [
-            "5 секунд",
-            "15 секунд",
-            "30 секунд",
-            "1 минута",
-            "5 минуты",
-            "10 минуты",
-            "15 минуты",
-        ],
+        "time": tiime_options,
         "image": "",
     },
     "Акции": {
@@ -248,15 +233,7 @@ TRADER_TOOLS = {
             "Netflix OTC",
             "FACEBOOK INC OTC",
         ],
-        "time": [
-            "5 секунд",
-            "15 секунд",
-            "30 секунд",
-            "1 минута",
-            "5 минуты",
-            "10 минуты",
-            "15 минуты",
-        ],
+        "time": tiime_options,
     },
     "Индексы": {
         "tools": [
@@ -271,15 +248,7 @@ TRADER_TOOLS = {
             "US100 OTC",
             "SP500 OTC",
         ],
-        "time": [
-            "5 секунд",
-            "15 секунд",
-            "30 секунд",
-            "1 минута",
-            "5 минуты",
-            "10 минуты",
-            "15 минуты",
-        ],
+        "time": tiime_options,
     },
 }
 

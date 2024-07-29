@@ -175,6 +175,7 @@ async def win_handler(callback_query: CallbackQuery):
                         custom=["agree_lose"],
                     ),
                 )
+                user.lose_count = 0
             else:
                 user.lose_count += 1
                 await callback_query.message.answer(

@@ -18,8 +18,9 @@ class TraderFilter(BaseFilter):
                 await message.answer("Пока ваша торговля не окончена вы не можете использовать новые сигналы!")
                 return False
             elif user.state == 4:
-                await message.answer("Нажмите на кнопку Выигрыш или Проигрыш")
-                return False
+                if message.text in ["Управляемый трейдинг", "Ручной трейдинг"]:
+                    await message.answer("Нажмите на кнопку Выигрыш или Проигрыш")
+                    return False
             elif user.state == 5:
                 await message.answer("Бот анализирует рынок")
                 return False
