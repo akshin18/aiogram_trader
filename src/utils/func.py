@@ -113,6 +113,7 @@ async def is_auto_trade(user: User, message: Message):
         if user.auto_trade_count < user.auto_trade_choose_count:
             user.trade_start_time += datetime.timedelta(minutes=3)
             user.state = 5
+            await message.answer("Бот Анализирует рынок, Пожалуйста подождите")
             await user.save()
             await asyncio.sleep(60)
             user.state = 2
