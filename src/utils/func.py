@@ -108,13 +108,21 @@ async def generate_random_trade(user: User, message: Message):
     inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
     await message.answer(text, reply_markup=inline_keyboard)
 
-async def is_auto_trade(user: User, message: Message):
+async def is_auto_trade(user: User, message: Message, result: str = "no"):
+    auto_text="Бот Анализирует рынок, Пожалуйста подождите"
+    if result == "win":
+        auto_text = "Ожидайте в течении 2-10 минут бот отправит вам новый подходящий сигнал"
+    elif result == "lose":
+        auto_text = "Ожидайте бот сейчас анализирует в чем возникла проблема и рекомендует вам перезапустить страницу браузера для лучшей синхронизации"
     if user.trade_mode == 1:
         if user.auto_trade_count < user.auto_trade_choose_count:
             user.trade_start_time += datetime.timedelta(minutes=3)
             user.state = 5
-            await message.answer("Бот Анализирует рынок, Пожалуйста подождите")
             await user.save()
+            if result == "lose":
+                await message.answer(auto_text, reply_markup=get_inline_keyboard(["Я обновил страницу Браузера"], 1))
+            else:
+                await message.answer(auto_text)
             await asyncio.sleep(60)
             user.state = 2
             await user.save()

@@ -151,7 +151,7 @@ async def win_count_handler(message: Message, state: FSMContext):
     google_sheet.update_win_count(user.user_id, user.win_count, )
     await state.clear()
     if user:
-        if not await is_auto_trade(user, message):
+        if not await is_auto_trade(user, message, result="win"):
             await message.answer(
                 "Меню:",
                 reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
@@ -166,7 +166,7 @@ async def win_handler(callback_query: CallbackQuery):
         user.state = 2
         user.last_lose_count += 1
         google_sheet.update_lose_win_count(user.user_id, user.win_count - user.last_lose_count)
-        if not await is_auto_trade(user, callback_query.message):
+        if not await is_auto_trade(user, callback_query.message, result="lose"):
             if user.lose_count >= 2:
                 await callback_query.message.answer(
                     lose_text,
