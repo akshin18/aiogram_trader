@@ -10,6 +10,7 @@ from loguru import logger
 
 from config_reader import config, TRADER_TOOLS, time_splitter, lose_text, google_sheet
 from filters.filter import TraderFilter
+from utils import language
 from utils.func import is_auto_trade, req_user, send_indicator
 from keyboards.common import get_inline_keyboard, get_keyboard
 from db.models import User
@@ -30,7 +31,7 @@ async def get_id(message: Message):
     await message.answer(str(message.from_user.id))
 
 
-@router.message(F.text == "Ручной трейдинг")
+@router.message(F.text == language.manual_trading[config.LANG])
 async def manual_trading_handler(message: Message):
     user = await User.get_or_none(user_id=message.from_user.id)
     user.manual_click_count += 1
@@ -46,7 +47,7 @@ async def manual_trading_handler(message: Message):
             await message.answer(config.FOR_PAY)
             return
         await message.answer(
-            "Опции:", reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys()))
+            language.options[config.LANG], reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys()))
         )
 
 
@@ -71,7 +72,7 @@ async def trading_type_callback(callback_query: CallbackQuery):
         user.trade_tools = "&&".join(random_trader_tools)
     await user.save()
     await callback_query.message.answer(
-        "Анализ рынка выявил 5 наилучших торговых пар:",
+        language.analise_found_5[config.LANG],
         reply_markup=get_inline_keyboard(random_trader_tools, pre="tradingtype"),
     )
 
@@ -93,7 +94,7 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
         if trade_image:
             await callback_query.message.answer_photo(trade_image)
         await callback_query.message.answer(
-            "Опции:", reply_markup=get_inline_keyboard(trade_time, pre="tradetime")
+            language.options[config.LANG], reply_markup=get_inline_keyboard(trade_time, pre="tradetime")
         )
 
 
@@ -118,7 +119,7 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
         )
 
 
-@router.message(F.text == "Управляемый трейдинг")
+@router.message(F.text == language.auto_trading[config.LANG])
 async def manual_trading_handler(message: Message):
     user = await User.get_or_none(user_id=message.from_user.id)
     if user:
@@ -126,20 +127,20 @@ async def manual_trading_handler(message: Message):
         user.auto_click_count += 1
         await user.save()
         google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
-        inline_keyboard = get_inline_keyboard(["10 минут (2 сигнала)", "20 минут (4 сигнала)", "30 минут Рекомендация! (5 сигналов)"], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
+        inline_keyboard = get_inline_keyboard(language.auto_trading_signals_time[config.LANG], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
         await message.answer(
-            "Выберите сколько у вас есть времени для торговой сессии? (с суммой депозита до 50 бакс вы можете использовать бота 2 раз в сутки)",
+            language.auto_trading_question_count[config.LANG],
             reply_markup=inline_keyboard
         )
 
 
-@router.callback_query(F.data == "Выигрыш")
+@router.callback_query(F.data == language.win[config.LANG])
 async def win_handler(callback_query: CallbackQuery, state: FSMContext):
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user and user.state == 4:
         await callback_query.message.delete()
         await state.set_state(WinState.win)
-        await callback_query.message.answer("Напишите сумму выигрыша")
+        await callback_query.message.answer(language.win_amount[config.LANG])
 
 
 @router.message(WinState.win)
@@ -153,12 +154,12 @@ async def win_count_handler(message: Message, state: FSMContext):
     if user:
         if not await is_auto_trade(user, message, result="win"):
             await message.answer(
-                "Меню:",
-                reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+                language.menu[config.LANG],
+                reply_markup=get_keyboard(language.trading_methods[config.LANG]),
             )
 
 
-@router.callback_query(F.data == "Проигрыш")
+@router.callback_query(F.data == language.lose[config.LANG])
 async def win_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
@@ -171,7 +172,7 @@ async def win_handler(callback_query: CallbackQuery):
                 await callback_query.message.answer(
                     lose_text,
                     reply_markup=get_inline_keyboard(
-                        "Я подтверждаю обновление страницы и выбор новой пары для трейдинга !",
+                        language.lose_confirm_refresh[config.LANG],
                         custom=["agree_lose"],
                     ),
                 )
@@ -179,8 +180,8 @@ async def win_handler(callback_query: CallbackQuery):
             else:
                 user.lose_count += 1
                 await callback_query.message.answer(
-                    "Меню:",
-                    reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+                    language.menu[config.LANG],
+                    reply_markup=get_keyboard(language.trading_methods[config.LANG]),
                 )
         await user.save()
 
@@ -189,14 +190,14 @@ async def win_handler(callback_query: CallbackQuery):
 async def agree_lose_handler(callback_query: CallbackQuery):
     await callback_query.message.delete()
     await callback_query.message.answer(
-        "Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
+        language.menu[config.LANG], reply_markup=get_keyboard(language.trading_methods[config.LANG])
     )
 
 
-@router.message(F.text == "Назад в Меню")
+@router.message(F.text == language.back[config.LANG])
 async def go_to_menu(callback_query: CallbackQuery):
     await callback_query.message.answer(
-        "Меню:", reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
+        language.menu[config.LANG], reply_markup=get_keyboard(language.trading_methods[config.LANG])
     )
 
 
@@ -208,15 +209,15 @@ async def message_handler(message: Message):
             user.state = 2
             user.trader_id = message.text.strip()
             await user.save()
-            await message.answer(config.FTM)
+            await message.answer(language.ftm[config.LANG])
             await asyncio.sleep(3)
             await message.answer(
-                "Меню:",
-                reply_markup=get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"]),
+                language.menu[config.LANG],
+                reply_markup=get_keyboard(language.trading_methods[config.LANG]),
             )
         if user.state == 2:
-            menu = get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
-            await message.answer("Меню:", reply_markup=menu)
+            menu = get_keyboard(language.trading_methods[config.LANG])
+            await message.answer(language.menu[config.LANG], reply_markup=menu)
 
 
 @router.callback_query(F.data.in_(["auto_time_2", "auto_time_4", "auto_time_5"]))
@@ -231,7 +232,7 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
         if trade_time and len(trade_time) > 3:
             random_trade_time_str = random.choice(trade_time)
         else:
-            random_trade_time_str = "15 секунд"
+            random_trade_time_str = language.default_seconds[config.LANG]
         user.trade_type = random_trade_type
         user.trade_tools = random_trade_tool
         user.trade_time = random_trade_time_str
@@ -239,11 +240,8 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
         user.auto_trade_count = 1
         user.trade_mode = 1
         await user.save()
-        text = f"""Выберите торговую пару :
-{random_trade_tool}
-В опции: {random_trade_type}
-Время эксперации: {random_trade_time_str}"""
-        inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
+        text = language.choose_trade_pair[config.LANG].format(random_trade_tool=random_trade_tool, random_trade_type=random_trade_type, random_trade_time_str=random_trade_time_str)
+        inline_keyboard = get_inline_keyboard(language.confirm_choice[config.LANG], custom=["agree_auto_trade"])
         await callback_query.message.answer(text, reply_markup=inline_keyboard)
 
 

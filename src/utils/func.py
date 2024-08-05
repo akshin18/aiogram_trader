@@ -10,6 +10,7 @@ from config_reader import TRADER_TOOLS, config, google_sheet, indicator_form, ti
 from db.models import User
 from app import bot
 from keyboards.common import get_inline_keyboard, get_keyboard
+from utils import language
 
 
 async def req_user(message: Union[Message, ChatJoinRequest], req=False):
@@ -23,17 +24,17 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
         google_sheet.create_user(now, now, user.user_id, True, user.username)
     if user.state == 0:
-        await message.answer(f"Подпишитесь на канал (напишите мне в личку: {message.from_user.id} , я выдам доступ)")
+        await message.answer(language.sub_to_channel[config.LANG].format(user_id=message.from_user.id))
         return
     elif user.state == 1:
         if not user.trader_id:
-            await message.answer("Отправьте ваш ид пользователя в таком формате: 123456789")
+            await message.answer(language.send_trader_id[config.LANG])
         else:
             user.state = 2
             await user.save()
     elif user.state == 2:
-        menu = get_keyboard(["Ручной трейдинг", "Управляемый трейдинг"])
-        await message.answer("Меню:", reply_markup=menu)
+        menu = get_keyboard(language.trading_methods[config.LANG])
+        await message.answer(language.menu[config.LANG], reply_markup=menu)
     
 
 
@@ -59,10 +60,10 @@ async def set_paid(user_id: int):
         await user.save()
 
 
-async def send_indicator(message: Message, user: User, trade_tools: str, trade_time: int, trade_time_str: str = "15 секунд"):
+async def send_indicator(message: Message, user: User, trade_tools: str, trade_time: int, trade_time_str: str = language.default_seconds[config.LANG]):
     user.signals_count += 1
     google_sheet.update_indecator_count(user.user_id, user.signals_count)
-    text = indicator_form % (trade_tools, trade_time_str, random.choice(["Понижение📉", "Повышение📈"]))
+    text = indicator_form.format(trade_tools=trade_tools, trade_time_str=trade_time_str, trade_direction=random.choice(language.trade_direction[config.LANG]))
     user.state = 3
     trade_delay = (trade_time + 15)
     user.trade_choose_time = datetime.datetime.now(datetime.UTC) + datetime.timedelta(seconds=trade_delay)
@@ -72,7 +73,7 @@ async def send_indicator(message: Message, user: User, trade_tools: str, trade_t
     await asyncio.sleep(trade_delay)
     user.state = 4
     await user.save()
-    await message.answer(f"Какой вы получили результат по последней  сделке ({user.trade_choose_tools})?", reply_markup=get_inline_keyboard(["Выигрыш", "Проигрыш"], 1))
+    await message.answer(language.trade_result_question[config.LANG].format(trade_tool=user.trade_choose_tools), reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
 
 
 async def check_forgotten():
@@ -84,7 +85,7 @@ async def check_forgotten():
             if user.trade_start_time + datetime.timedelta(seconds=time_splitter.get(user.trade_time, 15) + 15) < now:
                 user.state = 4
                 await user.save()
-                await bot.send_message(user.user_id,f"Какой вы получили результат по последней сделке {user.trade_choose_tools}?", reply_markup=get_inline_keyboard(["Выигрыш", "Проигрыш"], 1))
+                await bot.send_message(language.trade_result_question[config.LANG].format(trade_tool=user.trade_choose_tools), reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
         await asyncio.sleep(10)
 
 
@@ -95,32 +96,30 @@ async def generate_random_trade(user: User, message: Message):
     if trade_time and len(trade_time) > 3:
         random_trade_time_str = random.choice(trade_time)
     else:
-        random_trade_time_str = "15 секунд"
+        random_trade_time_str = language.default_seconds[config.LANG]
     user.trade_type = random_trade_type
     user.trade_choose_tools = random_trade_tool
     user.trade_time = random_trade_time_str
     user.auto_trade_count += 1
     await user.save()
-    text = f"""Выберите торговую пару :
-{random_trade_tool}
-В опции: {random_trade_type}
-Время эксперации: {random_trade_time_str}"""
-    inline_keyboard = get_inline_keyboard("Подтверждаю выбор нужных данных!", custom=["agree_auto_trade"])
+    text = language.choose_trade_pair[config.LANG].format(random_trade_tool=random_trade_tool, random_trade_type=random_trade_type, random_trade_time_str=random_trade_time_str)
+    
+    inline_keyboard = get_inline_keyboard(language.confirm_choice[config.LANG], custom=["agree_auto_trade"])
     await message.answer(text, reply_markup=inline_keyboard)
 
 async def is_auto_trade(user: User, message: Message, result: str = "no"):
-    auto_text="Бот Анализирует рынок, Пожалуйста подождите"
+    auto_text= language.bot_analizing_please_wait[config.LANG]
     if result == "win":
-        auto_text = "Ожидайте в течении 2-10 минут бот отправит вам новый подходящий сигнал"
+        auto_text = language.win_wait[config.LANG]
     elif result == "lose":
-        auto_text = "Ожидайте бот сейчас анализирует в чем возникла проблема и рекомендует вам перезапустить страницу браузера для лучшей синхронизации"
+        auto_text = language.lose_wait
     if user.trade_mode == 1:
         if user.auto_trade_count < user.auto_trade_choose_count:
             user.trade_start_time += datetime.timedelta(minutes=3)
             user.state = 5
             await user.save()
             if result == "lose":
-                await message.answer(auto_text, reply_markup=get_inline_keyboard(["Я обновил страницу Браузера"], 1))
+                await message.answer(auto_text, reply_markup=get_inline_keyboard([language.i_have_updated_site[config.LANG]], 1))
             else:
                 await message.answer(auto_text)
             await asyncio.sleep(60)

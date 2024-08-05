@@ -4,6 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 
 from config_reader import TRADER_TOOLS, config
+from utils import language
 from utils.func import set_subscribed, set_paid
 from keyboards.common import get_inline_keyboard, get_keyboard
 from filters.filter import AdminFilter
@@ -17,7 +18,7 @@ async def activate_handler(message: Message):
         user_id = int(message.text.split(" ")[1])
         await set_subscribed(user_id)
         await message.answer(f"Пользователь {user_id} активирован")
-        await message.bot.send_message(user_id, "Отправьте ваш ид пользователя в таком формате: 123456789")
+        await message.bot.send_message(user_id, language.send_trader_id[config.LANG])
     except:
         await message.answer("Не правильный user_id")
 
@@ -27,7 +28,7 @@ async def paid_handler(message: Message):
         user_id = int(message.text.split(" ")[1])
         await set_paid(user_id)
         await message.answer(f"Пользователь {user_id} Заплатил")
-        await message.bot.send_message(user_id, "Теперь вам активна функция трейдинга в ручном режиме что бы начать торговать нажмите кнопку опции", reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys())))
+        await message.bot.send_message(user_id, language.you_paid[config.LANG], reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys())))
     except:
         await message.answer("Не правильный user_id")
 
