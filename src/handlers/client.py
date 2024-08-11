@@ -44,7 +44,7 @@ async def manual_trading_handler(message: Message):
             user.top_up_date = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
             await user.save()
             google_sheet.update_top_up(user.user_id, user.top_up_date)
-            await message.answer(config.FOR_PAY)
+            await message.answer(language.for_pay[config.LANG])
             return
         await message.answer(
             language.options[config.LANG], reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys()))
