@@ -3,6 +3,7 @@ from aiogram.types import Message
 
 from config_reader import config, TRADER_TOOLS
 from db.models import User
+from keyboards.common import get_inline_keyboard
 from utils import language
 
 
@@ -20,7 +21,7 @@ class TraderFilter(BaseFilter):
                 return False
             elif user.state == 4:
                 if message.text in language.trading_methods[config.LANG]:
-                    await message.answer(language.click_win_or_lose[config.LANG])
+                    await message.answer(language.click_win_or_lose[config.LANG], reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
                     return False
             elif user.state == 5:
                 await message.answer(language.bot_analizing_please_wait[config.LANG])
