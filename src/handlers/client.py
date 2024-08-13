@@ -257,3 +257,6 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
             await send_indicator(callback_query.message, user, user.trade_choose_tools, trade_time, user.trade_time)
         
         
+@router.callback_query(F.data == "i_have_refreshed_site")
+async def handle_trader_agree_auto(callback_query: CallbackQuery):
+    await callback_query.message.delete()

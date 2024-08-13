@@ -114,12 +114,6 @@ trade_result_question = {
         "AR": "ما هي النتيجة التي حصلت عليها في آخر تداول لك ({trade_tool})؟"
     }
 
-trade_result_types = {
-        "RU": ["Выигрыш", "Проигрыш"],
-        "EN": ["Win", "Lose"],
-        "ES": ["Ganancia", "Pérdida"],
-        "AR": ["ربح", "خسارة"]
-    }
 
 choose_trade_pair = {
         "RU": "Выберите торговую пару : {random_trade_tool}\nВ опции: {random_trade_type}\nВремя эксперации: {random_trade_time_str}",
@@ -212,6 +206,13 @@ win = {
         "AR": "ربح"
     }
 
+trade_result_types = {
+        "RU": ["Выигрыш", "Проигрыш"],
+        "EN": ["Win", "Lose"],
+        "ES": ["Ganancia", "Pérdida"],
+        "AR": ["ربح", "خسارة"]
+    }
+
 win_amount = {
         "RU": "Напишите сумму выигрыша",
         "EN": "Please write the amount of your profit.",
@@ -221,7 +222,7 @@ win_amount = {
 
 lose = {
         "RU": "Проигрыш",
-        "EN": "Loss",
+        "EN": "Lose",
         "ES": "Pérdida",
         "AR": "خسارة"
     }

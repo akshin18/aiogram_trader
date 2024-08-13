@@ -119,7 +119,7 @@ async def is_auto_trade(user: User, message: Message, result: str = "no"):
             user.state = 5
             await user.save()
             if result == "lose":
-                await message.answer(auto_text, reply_markup=get_inline_keyboard([language.i_have_updated_site[config.LANG]], 1))
+                await message.answer(auto_text, reply_markup=get_inline_keyboard([language.i_have_updated_site[config.LANG]], 1, custom=["i_have_refreshed_site"]))
             else:
                 await message.answer(auto_text)
             await asyncio.sleep(60)
