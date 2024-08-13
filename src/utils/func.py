@@ -85,7 +85,7 @@ async def check_forgotten():
             if user.trade_start_time + datetime.timedelta(seconds=time_splitter.get(user.trade_time, 15) + 15) < now:
                 user.state = 4
                 await user.save()
-                await bot.send_message(language.trade_result_question[config.LANG].format(trade_tool=user.trade_choose_tools), reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
+                await bot.send_message(user.user_id, language.trade_result_question[config.LANG].format(trade_tool=user.trade_choose_tools), reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
         await asyncio.sleep(10)
 
 
@@ -112,7 +112,7 @@ async def is_auto_trade(user: User, message: Message, result: str = "no"):
     if result == "win":
         auto_text = language.win_wait[config.LANG]
     elif result == "lose":
-        auto_text = language.lose_wait
+        auto_text = language.lose_wait[config.LANG]
     if user.trade_mode == 1:
         if user.auto_trade_count < user.auto_trade_choose_count:
             user.trade_start_time += datetime.timedelta(minutes=3)

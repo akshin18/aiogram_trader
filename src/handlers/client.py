@@ -249,6 +249,8 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
 async def handle_trader_agree_auto(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
+    print(user)
+    print(user.state)
     if user:
         trade_time = time_splitter[user.trade_time]
         if user.state == 2:
