@@ -89,14 +89,17 @@ async def check_forgotten():
         await asyncio.sleep(10)
 
 
-async def generate_random_trade(user: User, message: Message):
+async def generate_random_trade(user: User, message: Message, last= False):
     random_trade_type = random.choice(list(TRADER_TOOLS.keys()))
     random_trade_tool = random.choice(TRADER_TOOLS[random_trade_type]['tools'])
     trade_time = TRADER_TOOLS[random_trade_type].get('time')
+    random_time = random.randint(2,6) if not last else user.auto_trade_time_left
     if trade_time and len(trade_time) > 3:
-        random_trade_time_str = trade_time[-3]
+        random_trade_time_str = trade_time[-3].replace("5", str(random_time))
     else:
         random_trade_time_str = language.default_seconds[config.LANG]
+
+    user.auto_trade_time_left -= random_time
     user.trade_type = random_trade_type
     user.trade_choose_tools = random_trade_tool
     user.trade_time = random_trade_time_str
@@ -125,7 +128,10 @@ async def is_auto_trade(user: User, message: Message, result: str = "no"):
             await asyncio.sleep(60)
             user.state = 2
             await user.save()
-            await generate_random_trade(user, message)
+            last = False
+            if user.auto_trade_count == (user.auto_trade_choose_coun - 1):
+                last = True
+            await generate_random_trade(user, message, last=last)
             return True
         user.auto_trade_choose_count = 0
         user.auto_trade_count = 0

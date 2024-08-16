@@ -20,6 +20,7 @@ class User(Model):
     trade_mode = fields.IntField(null=True, default=0)
     auto_trade_count = fields.IntField(null=True, default=0)
     auto_trade_choose_count = fields.IntField(null=True, default=0)
+    auto_trade_time_left = fields.IntField(null=True, default=0)
 
     
     name = fields.CharField(max_length=50, null=True)

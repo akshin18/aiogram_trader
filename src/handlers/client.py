@@ -229,16 +229,26 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
         random_trade_type = random.choice(list(TRADER_TOOLS.keys()))
         random_trade_tool = random.choice(TRADER_TOOLS[random_trade_type]['tools'])
         trade_time = TRADER_TOOLS[random_trade_type].get('time')
+        random_time = random.randint(2,6)
         if trade_time and len(trade_time) > 3:
-            random_trade_time_str = trade_time[-3]
+            random_trade_time_str = trade_time[-3].replace("5", str(random_time))
         else:
             random_trade_time_str = language.default_seconds[config.LANG]
+        
+        if auto_trade_count == "2":
+            auto_trade_left_time = 10 - random_time
+        elif auto_trade_count == "4":
+            auto_trade_left_time = 20 - random_time
+        else:
+            auto_trade_left_time = 30 - random_time
+        
         user.trade_type = random_trade_type
         user.trade_tools = random_trade_tool
         user.trade_time = random_trade_time_str
         user.auto_trade_choose_count = int(auto_trade_count)
         user.auto_trade_count = 1
         user.trade_mode = 1
+        user.auto_trade_time_left = auto_trade_left_time
         await user.save()
         text = language.choose_trade_pair[config.LANG].format(random_trade_tool=random_trade_tool, random_trade_type=random_trade_type, random_trade_time_str=random_trade_time_str)
         inline_keyboard = get_inline_keyboard(language.confirm_choice[config.LANG], custom=["agree_auto_trade"])
