@@ -94,7 +94,7 @@ async def generate_random_trade(user: User, message: Message):
     random_trade_tool = random.choice(TRADER_TOOLS[random_trade_type]['tools'])
     trade_time = TRADER_TOOLS[random_trade_type].get('time')
     if trade_time and len(trade_time) > 3:
-        random_trade_time_str = random.choice(trade_time)
+        random_trade_time_str = trade_time[-3]
     else:
         random_trade_time_str = language.default_seconds[config.LANG]
     user.trade_type = random_trade_type

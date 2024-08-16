@@ -149,7 +149,7 @@ async def win_count_handler(message: Message, state: FSMContext):
     user.state = 2
     user.win_count += 1
     await user.save()
-    google_sheet.update_win_count(user.user_id, user.win_count, )
+    google_sheet.update_win_count(user.user_id, user.win_count)
     await state.clear()
     if user:
         if not await is_auto_trade(user, message, result="win"):
@@ -202,7 +202,7 @@ async def go_to_menu(callback_query: CallbackQuery):
 
 
 @router.message()
-async def message_handler(message: Message):
+async def message_handler(message: Message, state: FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
     if user:
         if user.state == 1:
@@ -230,7 +230,7 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
         random_trade_tool = random.choice(TRADER_TOOLS[random_trade_type]['tools'])
         trade_time = TRADER_TOOLS[random_trade_type].get('time')
         if trade_time and len(trade_time) > 3:
-            random_trade_time_str = random.choice(trade_time)
+            random_trade_time_str = trade_time[-3]
         else:
             random_trade_time_str = language.default_seconds[config.LANG]
         user.trade_type = random_trade_type

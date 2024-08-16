@@ -80,12 +80,7 @@ send_trader_id = {
         "AR": "أرسل رمز المستخدم الخاص بك بهذا التنسيق: 123456789"
     }
 
-trading_methods = {
-        "RU": ["Ручной трейдинг", "Управляемый трейдинг"],
-        "EN": ["Manual Trading", "Managed Trading"],
-        "ES": ["Trading manual", "Trading gestionado"],
-        "AR": ["التداول اليدوي", "التداول المدعوم"]
-    }
+
 menu = {
         "RU": "Меню:",
         "EN": "Menu:",
@@ -162,6 +157,13 @@ manual_trading = {
         "EN": "Manual Trading",
         "ES": "Trading Manual",
         "AR": "التداول اليدوي"
+    }
+
+trading_methods = {
+        "RU": ["Ручной трейдинг", "Управляемый трейдинг"],
+        "EN": ["Manual Trading", "Managed Trading"],
+        "ES": ["Trading Manual", "Trading Gestionado"],
+        "AR": ["التداول اليدوي", "التداول المدعوم"]
     }
 
 auto_trading = {
