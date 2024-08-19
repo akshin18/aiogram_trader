@@ -161,7 +161,10 @@ async def win_count_handler(message: Message, state: FSMContext):
 
 @router.callback_query(F.data == language.lose[config.LANG])
 async def win_handler(callback_query: CallbackQuery):
-    await callback_query.message.delete()
+    try:
+        await callback_query.message.delete()
+    except:
+        pass
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user and user.state == 4:
         user.state = 2
@@ -262,7 +265,7 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
     print(user)
     print(user.state)
     if user:
-        trade_time = time_splitter[user.trade_time]
+        trade_time = int(user.trade_time.split(" ")[0]) * 60
         if user.state == 2:
             await send_indicator(callback_query.message, user, user.trade_choose_tools, trade_time, user.trade_time)
         
