@@ -68,6 +68,7 @@ async def send_indicator(message: Message, user: User, trade_tools: str, trade_t
     trade_delay = (trade_time + 15)
     user.trade_choose_time = datetime.datetime.now(datetime.UTC) + datetime.timedelta(seconds=trade_delay)
     user.trade_start_time = datetime.datetime.now(datetime.UTC)
+
     await user.save()
     await message.answer(text)
     await asyncio.sleep(trade_delay)
@@ -82,7 +83,14 @@ async def check_forgotten():
         logger.debug(f"{len(users)=}")
         for user in users:
             now = datetime.datetime.now(datetime.UTC)
-            if user.trade_start_time + datetime.timedelta(seconds=time_splitter.get(user.trade_time, 15) + 15) < now:
+            seconds = time_splitter.get(user.trade_time)
+            if not seconds:
+                s_seconds = user.trade_time.split(" ")
+                if len(s_seconds) == 2:
+                    seconds = int(s_seconds[0]) * 60 
+                else:
+                    seconds = 15
+            if user.trade_start_time + datetime.timedelta(seconds = seconds + 15) < now:
                 user.state = 4
                 await user.save()
                 await bot.send_message(user.user_id, language.trade_result_question[config.LANG].format(trade_tool=user.trade_choose_tools), reply_markup=get_inline_keyboard(language.trade_result_types[config.LANG], 1))
@@ -129,7 +137,7 @@ async def is_auto_trade(user: User, message: Message, result: str = "no"):
             user.state = 2
             await user.save()
             last = False
-            if user.auto_trade_count == (user.auto_trade_choose_coun - 1):
+            if user.auto_trade_count == (user.auto_trade_choose_count - 1):
                 last = True
             await generate_random_trade(user, message, last=last)
             return True

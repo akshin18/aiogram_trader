@@ -244,8 +244,9 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
             auto_trade_left_time = 20 - random_time
         else:
             auto_trade_left_time = 30 - random_time
-        
+        print(random_trade_type, random_trade_tool)
         user.trade_type = random_trade_type
+        user.trade_choose_tools = random_trade_tool
         user.trade_tools = random_trade_tool
         user.trade_time = random_trade_time_str
         user.auto_trade_choose_count = int(auto_trade_count)
@@ -262,11 +263,11 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
 async def handle_trader_agree_auto(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
-    print(user)
-    print(user.state)
     if user:
         trade_time = int(user.trade_time.split(" ")[0]) * 60
+        print(trade_time)
         if user.state == 2:
+            print(( user, user.trade_choose_tools, trade_time, user.trade_time))
             await send_indicator(callback_query.message, user, user.trade_choose_tools, trade_time, user.trade_time)
         
         
