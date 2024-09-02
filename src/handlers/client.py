@@ -9,7 +9,7 @@ from aiogram.fsm.context import FSMContext
 from loguru import logger
 
 from config_reader import config, TRADER_TOOLS, time_splitter, lose_text, google_sheet
-from filters.filter import TraderFilter
+from filters.filter import TraderFilter, check_subscription
 from utils import language
 from utils.func import is_auto_trade, req_user, send_indicator
 from keyboards.common import get_inline_keyboard, get_keyboard
@@ -218,7 +218,7 @@ async def message_handler(message: Message, state: FSMContext):
                 language.menu[config.LANG],
                 reply_markup=get_keyboard(language.trading_methods[config.LANG]),
             )
-        if user.state == 2:
+        elif user.state == 2:
             menu = get_keyboard(language.trading_methods[config.LANG])
             await message.answer(language.menu[config.LANG], reply_markup=menu)
 
@@ -274,3 +274,26 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
 @router.callback_query(F.data == "i_have_refreshed_site")
 async def handle_trader_agree_auto(callback_query: CallbackQuery):
     await callback_query.message.delete()
+
+
+@router.callback_query(F.data == "i_have_subscribed")
+async def handle_trader_agree_auto(callback_query: CallbackQuery):
+    try:
+        await callback_query.message.delete()
+    except:
+        pass
+    user = await User.get_or_none(user_id=callback_query.from_user.id)
+    if user:
+        is_member = await check_subscription(callback_query.bot, callback_query.from_user.id)
+        if not is_member:
+            await callback_query.message.answer(language.new_sub_to_channel[config.LANG].format(channel=config.CHANNEL), reply_markup=get_inline_keyboard(language.i_have_subscribed[config.LANG], custom=["i_have_subscribed"]))
+            return
+        if user.state == 0:
+            await callback_query.message.bot.send_message(callback_query.from_user.id, language.send_trader_id[config.LANG])
+            user.state = 1
+            await user.save()
+        else:
+            await callback_query.message.answer(
+                language.menu[config.LANG],
+                reply_markup=get_keyboard(language.trading_methods[config.LANG]),
+            )

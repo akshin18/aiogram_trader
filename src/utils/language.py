@@ -72,6 +72,20 @@ sub_to_channel = {
         "AR": "اشترك في القناة (أرسل لي رسالة خاصة: {user_id} وسأمنحك الوصول)"
     }
 
+new_sub_to_channel = {
+    "RU": "Подпишитесь на канал {channel}, чтобы продолжить",
+    "EN": "Subscribe to the channel {channel} to continue",
+    "ES": "Suscríbete al canal {channel} para continuar",
+    "AR": "اشترك في القناة {channel} للمتابعة"
+}
+
+i_have_subscribed = {
+    "RU": "Я подписался",
+    "EN": "I have subscribed",
+    "ES": "Me he suscrito",
+    "AR": "لقد اشتركت"
+}
+
 send_trader_id = {
         "RU": "Отправьте ваш ид пользователя в таком формате: 123456789",
         "EN": "Send your user ID in this format: 123456789",

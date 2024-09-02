@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     ADMINS_ID: List
     SHEET_ID: SecretStr
     LANG: str
+    CHANNEL_ID: int
+    CHANNEL: str
 
     model_config = SettingsConfigDict(
         env_file=".env",

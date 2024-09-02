@@ -24,7 +24,7 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
         google_sheet.create_user(now, now, user.user_id, True, user.username)
     if user.state == 0:
-        await message.answer(language.sub_to_channel[config.LANG].format(user_id=message.from_user.id))
+        await message.answer(language.new_sub_to_channel[config.LANG].format(channel=config.CHANNEL), reply_markup=get_inline_keyboard(language.i_have_subscribed[config.LANG], custom=["i_have_subscribed"]))
         return
     elif user.state == 1:
         if not user.trader_id:
