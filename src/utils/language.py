@@ -73,10 +73,10 @@ sub_to_channel = {
     }
 
 new_sub_to_channel = {
-    "RU": "Подпишитесь на канал {channel}, чтобы продолжить",
-    "EN": "Subscribe to the channel {channel} to continue",
-    "ES": "Suscríbete al canal {channel} para continuar",
-    "AR": "اشترك في القناة {channel} للمتابعة"
+    "RU": "Подпишитесь на канал, чтобы продолжить",
+    "EN": "Subscribe to the channel to continue",
+    "ES": "Suscríbete al canal para continuar",
+    "AR": "اشترك في القناة للمتابعة"
 }
 
 i_have_subscribed = {
