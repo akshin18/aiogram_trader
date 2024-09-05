@@ -271,11 +271,11 @@ click_win_or_lose = {
     }
 
 for_pay = {
-        "RU": "Что бы получить доступ к ручному трейдингу вам нужно внести депозит 50 долларов!\nПосле того как вы сделайте депозит отправьте ид пользователя и скриншот менеджеру тогда вам будет доступна функция ручного трейдинга\n(@bot_helpmanager)",
-        "EN": "To gain access to manual trading, you need to make a $50 deposit! After you’ve made the deposit, send your user ID and a screenshot to the manager, and then the manual trading feature will be available to you.\n(@bot_helpmanager)",
-        "ES": "Para acceder al trading manual, debes realizar un depósito de 50 dólares. Una vez que hayas hecho el depósito, envía tu ID de usuario y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
-        "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك إيداع مبلغ قدره 50 دولارًا.\nبعد قيامك بالإيداع، أرسل رمز المستخدم الخاص بك ولقطة الشاشة إلى المسؤول، وسيكون خيار التداول اليدوي متاح لك.\n(@bot_helpmanager)"
-    }
+    "RU": "Что бы получить доступ к ручному трейдингу вам нужно внести депозит 50 долларов!\nПосле того как вы сделайте депозит отправьте ид пользователя ({user_id}) и скриншот менеджеру тогда вам будет доступна функция ручного трейдинга\n(@bot_helpmanager)",
+    "EN": "To gain access to manual trading, you need to make a $50 deposit! After you’ve made the deposit, send your user ID ({user_id}) and a screenshot to the manager, and then the manual trading feature will be available to you.\n(@bot_helpmanager)",
+    "ES": "Para acceder al trading manual, debes realizar un depósito de 50 dólares. Una vez que hayas hecho el depósito, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
+    "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك إيداع مبلغ قدره 50 دولارًا.\nبعد قيامك بالإيداع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول، وسيكون خيار التداول اليدوي متاح لك.\n(@bot_helpmanager)"
+}
 
 
 
