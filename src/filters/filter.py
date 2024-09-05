@@ -24,7 +24,8 @@ class TraderFilter(BaseFilter):
                 await message.answer(language.new_sub_to_channel[config.LANG], reply_markup=get_inline_keyboard(language.i_have_subscribed[config.LANG], custom=["i_have_subscribed"]))
                 return False
             if user.state == 0:
-                await message.bot.send_message(message.from_user.id, language.send_trader_id[config.LANG])
+                user.state = 1
+                await user.save()
                 return True
             if user.state == 3:
                 await message.answer(language.wait_trading_done[config.LANG])

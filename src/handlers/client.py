@@ -288,3 +288,12 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
         if not is_member:
             await callback_query.message.answer(language.new_sub_to_channel[config.LANG], reply_markup=get_inline_keyboard(language.i_have_subscribed[config.LANG], custom=["i_have_subscribed"]))
             return
+        if user.state == 0:
+            await callback_query.message.bot.send_message(callback_query.from_user.id, language.send_trader_id[config.LANG])
+            user.state = 1
+            await user.save()
+        else:
+            await callback_query.message.answer(
+                language.menu[config.LANG],
+                reply_markup=get_keyboard(language.trading_methods[config.LANG]),
+            )
