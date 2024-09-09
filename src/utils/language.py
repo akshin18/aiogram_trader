@@ -271,10 +271,10 @@ click_win_or_lose = {
     }
 
 for_pay = {
-    "RU": "Что бы получить доступ к ручному трейдингу вам нужно внести депозит 50 долларов!\nПосле того как вы сделайте депозит отправьте ид пользователя ({user_id}) и скриншот менеджеру тогда вам будет доступна функция ручного трейдинга\n(@bot_helpmanager)",
-    "EN": "To gain access to manual trading, you need to make a $50 deposit! After you’ve made the deposit, send your user ID ({user_id}) and a screenshot to the manager, and then the manual trading feature will be available to you.\n(@bot_helpmanager)",
-    "ES": "Para acceder al trading manual, debes realizar un depósito de 50 dólares. Una vez que hayas hecho el depósito, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
-    "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك إيداع مبلغ قدره 50 دولارًا.\nبعد قيامك بالإيداع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول، وسيكون خيار التداول اليدوي متاح لك.\n(@bot_helpmanager)"
+    "RU": "Что бы получить доступ к ручному трейдингу, вам нужно оплатить подписку стоимостью 50 долларов. После того как вы оплатите, отправьте ид пользователя ({user_id}) и скриншот менеджеру, тогда вам будет доступна функция ручного трейдинга.\n(@bot_helpmanager)",
+    "EN": "To get access to manual trading, you need to pay for a subscription worth $50. After making the payment, send your user ID ({user_id}) and a screenshot to the manager. Then you will have access to the manual trading function.\n(@bot_helpmanager)",
+    "ES": "Para acceder al trading manual, necesitas pagar una suscripción de 50 dólares. Una vez hecho el pago, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
+    "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك دفع اشتراك بقيمة 50 دولارًا. بعد القيام بالدفع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول. بعد ذلك، ستحصل على الوصول إلى وظيفة التداول اليدوي.\n(@bot_helpmanager)"
 }
 
 
