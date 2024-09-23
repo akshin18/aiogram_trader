@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import SecretStr
@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     LANG: str
     CHANNEL_ID: int
     CHANNEL: str
+    DECISION: Optional[int] = None
 
     model_config = SettingsConfigDict(
         env_file=".env",

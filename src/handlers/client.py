@@ -109,6 +109,8 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
         data = await state.get_data()
         trade_choose_tools = data["tools"]
         user.trade_choose_tools = trade_choose_tools
+        await callback_query.message.answer(language.bot_analizing_please_wait[config.LANG])
+        await asyncio.sleep(random.randint(10, 50))
         await user.save()
         await send_indicator(
             callback_query.message,

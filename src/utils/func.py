@@ -63,7 +63,11 @@ async def set_paid(user_id: int):
 async def send_indicator(message: Message, user: User, trade_tools: str, trade_time: int, trade_time_str: str = language.default_seconds[config.LANG]):
     user.signals_count += 1
     google_sheet.update_indecator_count(user.user_id, user.signals_count)
-    text = indicator_form.format(trade_tools=trade_tools, trade_time_str=trade_time_str, trade_direction=random.choice(language.trade_direction[config.LANG]))
+    if config.DECISION is None:
+        text = indicator_form.format(trade_tools=trade_tools, trade_time_str=trade_time_str, trade_direction=random.choice(language.trade_direction[config.LANG]))
+    else:
+        text = indicator_form.format(trade_tools=trade_tools, trade_time_str=trade_time_str, trade_direction=language.trade_direction[config.LANG][config.DECISION])
+
     user.state = 3
     trade_delay = (trade_time + 15)
     user.trade_choose_time = datetime.datetime.now(datetime.UTC) + datetime.timedelta(seconds=trade_delay)
