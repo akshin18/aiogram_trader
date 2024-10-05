@@ -23,6 +23,7 @@ router.message.filter(TraderFilter())
 
 @router.message(F.text == "/start")
 async def req_handler(message: Message):
+    await message.answer(language.ftm[config.LANG],reply_markup=get_keyboard(language.trading_methods[config.LANG]))
     await req_user(message, req=True)
 
 

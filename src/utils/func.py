@@ -32,8 +32,7 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
     elif user.state == 2:
         menu = get_keyboard(language.trading_methods[config.LANG])
         await message.answer(language.menu[config.LANG], reply_markup=menu)
-    else:
-        await message.answer(language.ftm[config.LANG],reply_markup=get_keyboard(language.trading_methods[config.LANG]))
+
 
 
 
