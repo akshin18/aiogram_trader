@@ -23,9 +23,6 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         logger.info(f"New user: {user.name}")
         now = datetime.datetime.now(google_sheet.moscow_timezone).strftime("%d/%m/%Y, %H:%M:%S")
         google_sheet.create_user(now, now, user.user_id, True, user.username)
-    if user.state == 0:
-        await message.answer(language.ftm[config.LANG],reply_markup=get_keyboard(language.trading_methods[config.LANG]))
-        return
     elif user.state == 1:
         if not user.trader_id:
             await message.answer(language.send_trader_id[config.LANG])
@@ -35,7 +32,9 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
     elif user.state == 2:
         menu = get_keyboard(language.trading_methods[config.LANG])
         await message.answer(language.menu[config.LANG], reply_markup=menu)
-    
+    else:
+        await message.answer(language.ftm[config.LANG],reply_markup=get_keyboard(language.trading_methods[config.LANG]))
+
 
 
 
