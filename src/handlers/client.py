@@ -14,7 +14,7 @@ from utils import language
 from utils.func import is_auto_trade, req_user, send_indicator
 from keyboards.common import get_inline_keyboard, get_keyboard
 from db.models import User
-from utils.states import WinState
+from utils.states import WinState, TraderId
 
 
 router = Router()
@@ -32,8 +32,11 @@ async def get_id(message: Message):
 
 
 @router.message(F.text == language.manual_trading[config.LANG])
-async def manual_trading_handler(message: Message):
+async def manual_trading_handler(message: Message, state:  FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
+    if user.state < 2:
+        await message_handler_main(message, state)
+        return
     user.manual_click_count += 1
     await user.save()
     google_sheet.update_manual_trading(user.user_id, user.manual_click_count)
@@ -126,19 +129,21 @@ async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
 
 
 @router.message(F.text == language.auto_trading[config.LANG])
-async def manual_trading_handler(message: Message):
+async def manual_trading_handler(message: Message, state: FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
     if user:
-        user.trade_mode = 1
-        user.auto_click_count += 1
-        await user.save()
-        google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
-        inline_keyboard = get_inline_keyboard(language.auto_trading_signals_time[config.LANG], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
-        await message.answer(
-            language.auto_trading_question_count[config.LANG],
-            reply_markup=inline_keyboard
-        )
-
+        if user.state >= 2:
+            user.trade_mode = 1
+            user.auto_click_count += 1
+            await user.save()
+            google_sheet.update_auto_trading(user.user_id, user.auto_click_count)
+            inline_keyboard = get_inline_keyboard(language.auto_trading_signals_time[config.LANG], custom=["auto_time_2", "auto_time_4", "auto_time_5"])
+            await message.answer(
+                language.auto_trading_question_count[config.LANG],
+                reply_markup=inline_keyboard
+            )
+        else:
+            await message_handler_main(message, state)
 
 @router.callback_query(F.data == language.win[config.LANG])
 async def win_handler(callback_query: CallbackQuery, state: FSMContext):
@@ -209,24 +214,29 @@ async def go_to_menu(callback_query: CallbackQuery):
         language.menu[config.LANG], reply_markup=get_keyboard(language.trading_methods[config.LANG])
     )
 
+@router.message(TraderId.trade_id)
+async def message_trader_id(message: Message, state: FSMContext):
+    user = await User.get_or_none(user_id=message.from_user.id)
+    if user:
+        user.state = 2
+        user.trader_id = message.text.strip()
+        await user.save()
+        menu = get_keyboard(language.trading_methods[config.LANG])
+        await message.answer(language.menu[config.LANG], reply_markup=menu)
+        await state.clear()
 
 @router.message()
-async def message_handler(message: Message, state: FSMContext):
+async def message_handler_main(message: Message, state: FSMContext):
     user = await User.get_or_none(user_id=message.from_user.id)
     if user:
         if user.state == 1:
-            user.state = 2
-            user.trader_id = message.text.strip()
-            await user.save()
-            await message.answer(language.ftm[config.LANG])
-            await asyncio.sleep(3)
-            await message.answer(
-                language.menu[config.LANG],
-                reply_markup=get_keyboard(language.trading_methods[config.LANG]),
-            )
+            await state.set_state(TraderId.trade_id)
+            await message.answer(language.send_trader_id[config.LANG])
         elif user.state == 2:
             menu = get_keyboard(language.trading_methods[config.LANG])
             await message.answer(language.menu[config.LANG], reply_markup=menu)
+
+
 
 
 @router.callback_query(F.data.in_(["auto_time_2", "auto_time_4", "auto_time_5"]))
