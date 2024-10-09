@@ -60,20 +60,22 @@ async def trading_type_callback(callback_query: CallbackQuery):
     await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     site = callback_query.data
-    if (
-        user.trade_type == site
-        and user.trade_choose_time is not None
-        and user.trade_choose_time > datetime.datetime.now(datetime.UTC)
-    ):
-        random_trader_tools = user.trade_tools.split("&&")
-    else:
-        logger.debug(user.trade_choose_time)
-        user.trade_type = site
-        user.trade_choose_time = datetime.datetime.now(
-            datetime.UTC
-        ) + datetime.timedelta(seconds=10 * 60)
-        random_trader_tools = random.choices(TRADER_TOOLS[site]["tools"], k=5)
-        user.trade_tools = "&&".join(random_trader_tools)
+    # if (
+    #     user.trade_type == site
+    #     and user.trade_choose_time is not None
+    #     and user.trade_choose_time > datetime.datetime.now(datetime.UTC)
+    # ):
+    #     random_trader_tools = user.trade_tools.split("&&")
+    # else:
+    #     logger.debug(user.trade_choose_time)
+    user.trade_type = site
+    # user.trade_choose_time = datetime.datetime.now(
+    #     datetime.UTC
+    # ) + datetime.timedelta(seconds=10 * 60)
+    random_time = datetime.datetime.now(datetime.UTC).strftime('%d.%m.%Y:%H:%M')[:-1]
+    random.seed(random_time)
+    random_trader_tools = random.choices(TRADER_TOOLS[site]["tools"], k=5)
+    user.trade_tools = "&&".join(random_trader_tools)
     await user.save()
     await callback_query.message.answer(
         language.analise_found_5[config.LANG],
