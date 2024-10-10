@@ -74,7 +74,7 @@ async def trading_type_callback(callback_query: CallbackQuery):
     # ) + datetime.timedelta(seconds=10 * 60)
     random_time = datetime.datetime.now(datetime.UTC).strftime('%d.%m.%Y:%H:%M')[:-1]
     random.seed(random_time)
-    random_trader_tools = random.choices(TRADER_TOOLS[site]["tools"], k=5)
+    random_trader_tools = random.sample(TRADER_TOOLS[site]["tools"], k=5)
     user.trade_tools = "&&".join(random_trader_tools)
     await user.save()
     await callback_query.message.answer(
