@@ -57,7 +57,8 @@ async def manual_trading_handler(message: Message, state:  FSMContext):
 
 @router.callback_query(F.data.in_(list(TRADER_TOOLS.keys())))
 async def trading_type_callback(callback_query: CallbackQuery):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     site = callback_query.data
     # if (
@@ -85,7 +86,8 @@ async def trading_type_callback(callback_query: CallbackQuery):
 
 @router.callback_query(F.data.startswith("tradingtype_"))
 async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user:
         trade_time = TRADER_TOOLS[user.trade_type]["time"]
@@ -106,7 +108,8 @@ async def trade_tools_callback(callback_query: CallbackQuery, state: FSMContext)
 
 @router.callback_query(F.data.startswith("tradetime_"))
 async def trade_time_callback(callback_query: CallbackQuery, state: FSMContext):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user and user.state == 2:
         time_str = callback_query.data.split("_", maxsplit=1)[1]
@@ -152,7 +155,8 @@ async def manual_trading_handler(message: Message, state: FSMContext):
 async def win_handler(callback_query: CallbackQuery, state: FSMContext):
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user and user.state == 4:
-        await callback_query.message.delete()
+        if config.DECISION is None:
+            await callback_query.message.delete()
         await state.set_state(WinState.win)
         await callback_query.message.answer(language.win_amount[config.LANG])
 
@@ -176,7 +180,8 @@ async def win_count_handler(message: Message, state: FSMContext):
 @router.callback_query(F.data == language.lose[config.LANG])
 async def win_handler(callback_query: CallbackQuery):
     try:
-        await callback_query.message.delete()
+        if config.DECISION is None:
+            await callback_query.message.delete()
     except:
         pass
     user = await User.get_or_none(user_id=callback_query.from_user.id)
@@ -205,7 +210,8 @@ async def win_handler(callback_query: CallbackQuery):
 
 @router.callback_query(F.data == "agree_lose")
 async def agree_lose_handler(callback_query: CallbackQuery):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     await callback_query.message.answer(
         language.menu[config.LANG], reply_markup=get_keyboard(language.trading_methods[config.LANG])
     )
@@ -244,7 +250,8 @@ async def message_handler_main(message: Message, state: FSMContext):
 
 @router.callback_query(F.data.in_(["auto_time_2", "auto_time_4", "auto_time_5"]))
 async def handle_trader_time_auto(callback_query: CallbackQuery):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user:
         auto_trade_count = callback_query.data.split("auto_time_")[-1]
@@ -280,7 +287,8 @@ async def handle_trader_time_auto(callback_query: CallbackQuery):
 
 @router.callback_query(F.data == "agree_auto_trade")
 async def handle_trader_agree_auto(callback_query: CallbackQuery):
-    await callback_query.message.delete()
+    if config.DECISION is None:
+        await callback_query.message.delete()
     user = await User.get_or_none(user_id=callback_query.from_user.id)
     if user:
         trade_time = int(user.trade_time.split(" ")[0]) * 60
@@ -298,7 +306,8 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
 @router.callback_query(F.data == "i_have_subscribed")
 async def handle_trader_agree_auto(callback_query: CallbackQuery):
     try:
-        await callback_query.message.delete()
+        if config.DECISION is None:
+            await callback_query.message.delete()
     except:
         pass
     user = await User.get_or_none(user_id=callback_query.from_user.id)
