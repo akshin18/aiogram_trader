@@ -110,7 +110,9 @@ tiime_options = language.tiime_options[config.LANG]
 os.environ["TZ"] = "Europe/Moscow"
 TRADER_TOOLS = language.TRADER_TOOLS[config.LANG]
 
-times_list = [5, 15, 30, 60, 60*5, 60*10, 60*15]
-time_splitter =  { key:value for key, value in zip(language.tiime_options[config.LANG], times_list)}
+times_list = [5, 15, 30, 60, 60 * 5, 60 * 10, 60 * 15]
+time_splitter = {
+    key: value for key, value in zip(language.tiime_options[config.LANG], times_list)
+}
 indicator_form = language.indicator_form[config.LANG]
 lose_text = language.lose_text[config.LANG]
