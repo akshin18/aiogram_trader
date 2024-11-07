@@ -12,6 +12,7 @@ from filters.filter import AdminFilter
 router = Router()
 router.message.filter(AdminFilter())
 
+
 @router.message(F.text.startswith("/activate"))
 async def activate_handler(message: Message):
     try:
@@ -22,13 +23,17 @@ async def activate_handler(message: Message):
     except:
         await message.answer("Не правильный user_id")
 
+
 @router.message(F.text.startswith("/paid"))
 async def paid_handler(message: Message):
     try:
         user_id = int(message.text.split(" ")[1])
         await set_paid(user_id)
         await message.answer(f"Пользователь {user_id} Заплатил")
-        await message.bot.send_message(user_id, language.you_paid[config.LANG], reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys())))
+        await message.bot.send_message(
+            user_id,
+            language.you_paid[config.LANG],
+            reply_markup=get_inline_keyboard(list(TRADER_TOOLS.keys())),
+        )
     except:
         await message.answer("Не правильный user_id")
-

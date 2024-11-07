@@ -22,7 +22,6 @@ class User(Model):
     auto_trade_choose_count = fields.IntField(null=True, default=0)
     auto_trade_time_left = fields.IntField(null=True, default=0)
 
-    
     name = fields.CharField(max_length=50, null=True)
     username = fields.CharField(max_length=32, null=True)
     state = fields.IntField(null=False, default=0)
