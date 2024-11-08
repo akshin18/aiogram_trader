@@ -7,3 +7,10 @@ services:
       - ./:/app
     environment:
       - DOCKER_BUILDKIT=1
+    networks:
+      - my_app_network  # Reference the custom network here
+
+networks:
+  my_app_network:
+    name: my_app_network  # Assign a fixed name to the network
+    driver: bridge
