@@ -60,7 +60,7 @@ ftm = {
     "EN": "Meet our unique trading bot, which has become a true lifesaver for many investors! This innovative tool operates with the highest level of precision, providing exclusive signals for binary options trading. Whether you’re a beginner or a seasoned trader, our bot can help you achieve financial success.\nUsing advanced technology and analytical data, our bot enables high-yield trades, and its intelligent market analysis system predicts future trends with incredible accuracy. Reliability, efficiency, and promptness are the key advantages of our bot.",
     "ES": "Conoce a nuestro exclusivo bot de trading, que se ha convertido en un verdadero salvavidas para muchos inversores. Esta innovadora herramienta funciona con una precisión excepcional, proporcionando señales exclusivas para operar con opciones binarias. Sin importar tu nivel de experiencia, ya seas un trader principiante o un profesional, nuestro bot te ayudará a alcanzar el éxito financiero.\nGracias a tecnologías avanzadas y datos analíticos, nuestro bot permite realizar operaciones altamente rentables, y su sistema inteligente de análisis de mercado predice las tendencias futuras con una precisión increíble. Confiabilidad, eficiencia y rapidez son las principales ventajas de nuestro bot.",
     "AR": "تعرف على بوت التداول الفريد الخاص بنا، والذي أصبح خلاصًا حقيقيًا للعديد من المستثمرين! تعمل هذه الأداة المبتكرة على أعلى مستوى من الدقة، وتوفر لمستخدميها إشارات تداول الخيارات الثنائية الحصرية. بغض النظر عن مستوى خبرتك - سواء كنت متداولًا مبتدئًا أو محترفًا، سيساعدك البوت الخاص بنا على تحقيق النجاح المالي.\nباستخدام أحدث التقنيات والبيانات التحليلية، يتيح لك البوت الخاص بنا إجراء عمليات تداول مربحة للغاية، ويتنبأ نظام تحليل السوق الذكي الخاص به بالاتجاهات المستقبلية بدقة مذهلة. الموثوقية والكفاءة هي المزايا الرئيسية لروبوتنا.",
-    "TR": "Benzersiz ticaret botumuzla tanışın! Bu yenilikçi araç, ikili opsiyon ticareti için özel sinyaller sağlayarak en yüksek doğruluk seviyesinde çalışır. İster acemi ister profesyonel bir yatırımcı olun, botumuz finansal başarıya ulaşmanıza yardımcı olacaktır.\nGelişmiş teknoloji ve analiz verileri ile botumuz, yüksek kârlı işlemler yapmanıza olanak tanırken, piyasa analizi sistemi gelecekteki trendleri büyük bir doğrulukla tahmin eder. Güvenilirlik, verimlilik ve hız, botumuzun en önemli avantajlarıdır.",
+    "TR": "Tanışın! Birçok yatırımcı için gerçek bir kurtarıcı olan benzersiz ticaret botumuz burada! Bu yenilikçi araç, kullanıcılarına ikili opsiyon ticareti için özel sinyaller sağlayarak yüksek doğruluk seviyesinde çalışır. İster yeni başlayan ister profesyonel bir yatırımcı olun, botumuz sizi finansal başarıya ulaştırmanıza yardımcı olacaktır.\nGelişmiş teknoloji ve analitik veri desteği ile botumuz, yüksek kârlı işlemler yapmanıza olanak tanırken, piyasa analizi sistemi gelecekteki trendleri inanılmaz bir doğrulukla tahmin eder. Güvenilirlik, verimlilik ve hız, botumuzun başlıca avantajlarıdır.",
     "ID": "Temui bot perdagangan unik kami, yang telah menjadi penyelamat nyata bagi banyak investor! Alat inovatif ini bekerja pada tingkat akurasi tertinggi, memberikan penggunanya sinyal perdagangan opsi biner eksklusif. Terlepas dari tingkat pengalaman Anda - trader pemula atau profesional, bot kami akan membantu Anda mencapai kesuksesan finansial.\nDengan bantuan teknologi canggih dan data analitis, bot kami memungkinkan Anda melakukan perdagangan yang sangat menguntungkan, dan sistem analisis pasar cerdasnya memprediksi tren masa depan dengan akurasi luar biasa. Keandalan, efisiensi, dan efisiensi adalah keunggulan utama bot kami.",
 }
 
@@ -69,8 +69,8 @@ you_paid = {
     "EN": "Now you have access to manual trading mode. To start trading, simply click the ‘Options’ button.",
     "ES": "Ahora tienes habilitada la función de trading manual. Para comenzar a operar, simplemente presiona el botón de opciones.",
     "AR": "الآن أصبح خيار التداول اليدوي نشط لبدء التداول، انقر فوق زر الخيارات",
-    "TR": "Şimdi manuel ticaret moduna erişiminiz var. Ticaret yapmak için 'Seçenekler' düğmesine tıklayın.",
-    "ID": "Sekarang fungsi perdagangan manual sudah aktif bagi Anda untuk memulai perdagangan, klik tombol opsi.",
+    "TR": 'Artık manuel ticaret modu sizin için etkin. Ticaret yapmaya başlamak için "Opsiyonlar" düğmesine basın.',
+    "ID": 'Fitur perdagangan manual sekarang aktif untuk Anda. Untuk mulai berdagang, tekan tombol "Opsi".',
 }
 
 indicator_form = {
@@ -78,8 +78,8 @@ indicator_form = {
     "EN": "💱Currency Pair: ({trade_tools})\n⏳Expiration Time: ({trade_time_str})\n\n\n✅ The bot recommends opening trades for {trade_direction}\nTime to use the signal: 15 seconds",
     "ES": "💱Par de divisas: ({trade_tools})\n⏳Hora de expiración: ({trade_time_str})\n\n\n✅ El bot recomienda abrir operaciones al {trade_direction}\nTiempo para usar la señal: 15 segundos",
     "AR": "💱زوج العملات: ({trade_tools})\n⏳زمن إنتهاء الصلاحية: ({trade_time_str})\n\n\n✅ يوصي البوت بفتح صفقة علي {trade_direction}\nوقت استخدام الإشارة: 15 ثانية",
-    "TR": "💱Döviz Çifti: ({trade_tools})\n⏳Vade Süresi: ({trade_time_str})\n\n\n✅ Bot, {trade_direction} için işlem açmanızı öneriyor\nSinyali kullanmak için süre: 15 saniye",
-    "ID": "💱Pasangan mata uang: ({trade_tools})\n⏳Waktu kedaluwarsa: ({trade_time_str})\n\n\n✅Bot merekomendasikan pembukaan perdagangan untuk kenaikan {trade_direction}\nWaktu untuk menggunakan sinyal: 15 detik",
+    "TR": "💱 Döviz Çifti:\n⏳ ({trade_tools})\n\n✅ Bot, alım 📈  (satım 📉) yapmanızı öneriyor.\nSinyali kullanmak için süreniz (15 saniye)",
+    "ID": "💱Pasangan mata uang:\n⏳({trade_tools})\n✅Bot merekomendasikan pembukaan perdagangan untuk kenaikan 📈\n(penurunan 📉)\nWaktu untuk menggunakan sinyal (15 секунд)",
 }
 
 lose_text = {
@@ -87,8 +87,8 @@ lose_text = {
     "EN": "The bot recommends that you take a 5-minute break; you are losing due to the time frame difference between your device and the bot!\nAfter 5 minutes, you need to choose a new trading pair, refresh the page, and confirm the update and selection of the new pair for trading!",
     "ES": "El bot te recomienda tomar una pausa de 5 minutos, ya que podrías estar perdiendo debido a la diferencia en el marco de tiempo entre tu dispositivo y el bot. Después de 5 minutos, debes seleccionar un nuevo par de trading, actualizar la página del navegador y confirmar la elección del nuevo par para operar.",
     "AR": "يوصي البوت بالتوقف لمدة 5 دقائق، لأنك قد تخسر بسبب اختلاف الإطار الزمني لجهازك والبوت!\nبعد 5 دقائق، تحتاج إلى تحديد زوج تداول جديد، وتحديث صفحة المتصفح وتأكيد التحديث واختيار زوج جديد للتداول.",
-    "TR": "Bot, 5 dakika ara vermenizi öneriyor; cihazınız ve bot arasındaki zaman farkından dolayı kaybediyor olabilirsiniz!\n5 dakika sonra yeni bir işlem çifti seçmeli, sayfayı yenilemeli ve güncellemeyi ve yeni işlem çiftini onaylamalısınız!",
-    "ID": "Bot merekomendasikan Anda untuk beristirahat selama 5 menit, Anda kalah karena perbedaan waktu antara perangkat Anda dan bot!\nSetelah 5 menit, Anda perlu memilih pasangan perdagangan baru, segarkan halaman, dan konfirmasi pembaruan serta pemilihan pasangan baru untuk perdagangan!",
+    "TR": "Bot, cihazınız ile bot arasındaki zaman dilimi farkından dolayı kaybettiğinizi belirterek 5 dakika ara vermenizi öneriyor! 5 dakika sonra yeni bir ticaret çifti seçmeli, tarayıcı sayfasını yenilemeli ve güncellemeyi ve yeni ticaret çiftini onaylamalısınız!",
+    "ID": "Bot menyarankan Anda untuk istirahat selama 5 menit, karena Anda kalah akibat perbedaan waktu antara perangkat Anda dan bot! Setelah 5 menit, Anda perlu memilih pasangan perdagangan baru, memperbarui halaman browser, dan mengonfirmasi pembaruan serta pemilihan pasangan perdagangan baru!",
 }
 
 sub_to_channel = {
@@ -123,8 +123,8 @@ send_trader_id = {
     "EN": "Send your user ID in this format: 123456789",
     "ES": "Envía tu ID de usuario en este formato: 123456789",
     "AR": "أرسل رمز المستخدم الخاص بك بهذا التنسيق: 123456789",
-    "TR": "Kullanıcı kimliğinizi bu formatta gönderin: 123456789",
-    "ID": "Kirim ID pengguna Anda dalam format ini: 123456789",
+    "TR": "Kullanıcı ID'nizi şu formatta gönderin: 123456789",
+    "ID": "Kirim ID pengguna Anda dalam format berikut: 123456789",
 }
 
 
@@ -151,8 +151,9 @@ trade_direction = {
     "EN": ["Decrease📉", "Increase📈"],
     "ES": ["Disminución📉", "Aumento📈"],
     "AR": ["الهبوط📉", "الصعود📈"],
-    "TR": ["Azalma📉", "Artış📈"],
-    "ID": ["Penurunan📉", "Peningkatan📈"],
+    "TR": ["Alım 📈  (Satım 📉)"],
+    "ID": ["Kenaikan 📈", "Penurunan 📉"]
+
 }
 
 trade_result_question = {
@@ -160,8 +161,8 @@ trade_result_question = {
     "EN": "What result did you get from your last trade ({trade_tool})?",
     "ES": "¿Cuál fue el resultado de tu última operación ({trade_tool})?",
     "AR": "ما هي النتيجة التي حصلت عليها في آخر تداول لك ({trade_tool})؟",
-    "TR": "Son işleminizden ({trade_tool}) nasıl bir sonuç aldınız?",
-    "ID": "Apa hasil yang Anda dapatkan dari perdagangan terakhir Anda ({trade_tool})?",
+    "TR": "Son işlemdeki sonucunuz ne oldu (название валютной пары)?",
+    "ID": "AApa hasil perdagangan terakhir (название валютной пары))?",
 }
 
 
@@ -179,8 +180,8 @@ confirm_choice = {
     "EN": "I confirm the selection of the required data!",
     "ES": "Confirmo la selección de los datos requeridos!",
     "AR": "أؤكد اختيار البيانات المطلوبة!",
-    "TR": "Gerekli verilerin seçimini onaylıyorum!",
-    "ID": "Saya mengonfirmasi pemilihan data yang diperlukan!",
+    "TR": "Gerekli verileri seçtiğimi onaylıyorum!",
+    "ID": "Mengonfirmasi pemilihan data yang tepat!",
 }
 
 bot_analizing_please_wait = {
@@ -206,8 +207,8 @@ lose_wait = {
     "EN": "Please wait. The bot is analyzing the issue and recommends that you refresh the browser page for better synchronization.",
     "ES": "Por favor, espere. El bot está analizando el problema y recomienda que actualices la página del navegador para una mejor sincronización.",
     "AR": "انتظر. يقوم البوت الآن بتحليل المشكلة ويوصي بإعادة تحميل صفحة المتصفح للحصول على مزامنة أفضل.",
-    "TR": "Lütfen bekleyin. Bot sorunu analiz ediyor ve daha iyi senkronizasyon için tarayıcı sayfasını yenilemenizi öneriyor.",
-    "ID": "Harap tunggu. Bot sedang menganalisis masalah dan menyarankan Anda untuk menyegarkan halaman browser untuk sinkronisasi yang lebih baik.",
+    "TR": "Bot şu anda sorunun ne olduğunu analiz ediyor ve daha iyi senkronizasyon için tarayıcı sayfasını yeniden başlatmanızı öneriyor..",
+    "ID": "Mohon tunggu, bot sekarang menganalisis apa masalahnya dan merekomendasikan Anda untuk meluncurkan ulang halaman browser untuk sinkronisasi yang lebih baik",
 }
 
 i_have_updated_site = {
@@ -216,7 +217,7 @@ i_have_updated_site = {
     "ES": "He actualizado la página del navegador.",
     "AR": "لقد قمت بتحديث صفحة المتصفح.",
     "TR": "Tarayıcı sayfasını yeniledim.",
-    "ID": "Saya telah menyegarkan halaman browser.",
+    "ID": "SSaya me-refresh halaman browser.",
 }
 
 manual_trading = {
@@ -234,7 +235,7 @@ trading_methods = {
     "ES": ["Trading Manual", "Trading Gestionado"],
     "AR": ["التداول اليدوي", "التداول المدعوم"],
     "TR": ["Manuel Ticaret", "Yönetilen Ticaret"],
-    "ID": ["Perdagangan Manual", "Perdagangan Terkelola"],
+    "ID": ["Perdagangan Manual", "Trading yang dikelola"],
 }
 
 auto_trading = {
@@ -243,7 +244,7 @@ auto_trading = {
     "ES": "Trading Gestionado",
     "AR": "التداول المدعوم",
     "TR": "Yönetilen Ticaret",
-    "ID": "Perdagangan Terkelola",
+    "ID": "Trading yang dikelola",
 }
 
 auto_trading_signals_time = {
@@ -271,7 +272,7 @@ auto_trading_signals_time = {
     "ID": [
         "10 menit (2 sinyal)",
         "20 menit (4 sinyal)",
-        "30 menit (Direkomendasikan! 5 sinyal)",
+        "30 menit (Rekomendasi! 5 sinyal)",
     ],
 }
 
@@ -280,8 +281,8 @@ auto_trading_question_count = {
     "EN": "Choose how much time you have for your trading session? (With a deposit amount up to $50, you can use the bot twice a day)",
     "ES": "Elige cuánto tiempo tienes para tu sesión de trading. (Con un depósito de hasta $50, puedes usar el bot dos veces al día)",
     "AR": "اختر كم من الوقت لديك لجلسة التداول؟ (مع إيداع يصل إلى 50 دولارًا، يمكنك استخدام البوت مرتين في اليوم)",
-    "TR": "Ticaret seansınız için ne kadar zamanınız var? (50$'a kadar mevduat ile botu günde iki kez kullanabilirsiniz)",
-    "ID": "Pilih berapa banyak waktu yang Anda miliki untuk sesi perdagangan? (Dengan jumlah deposit hingga $50, Anda dapat menggunakan bot dua kali sehari)",
+    "TR": "Ticaret seansı için ne kadar zamanınız var? (50 $ 'a kadar depozito tutarı ile botu günde iki kez kullanabilirsiniz)",
+    "ID": "Pilih berapa banyak waktu yang Anda miliki untuk sesi trading? Dengan jumlah setoran hingga$ 50, Anda dapat menggunakan bot dua kali sehari",
 }
 
 options = {
@@ -298,8 +299,8 @@ analise_found_5 = {
     "EN": "Market analysis found 5 best trading pairs:",
     "ES": "El análisis del mercado encontró 5 mejores pares de divisas:",
     "AR": "تحليل السوق وجد 5 أفضل أزواج تداول:",
-    "TR": "Piyasa analizi en iyi 5 ticaret çiftini buldu:",
-    "ID": "Analisis pasar menemukan 5 pasangan perdagangan terbaik:",
+    "TR": "Analisis pasar menemukan 5 pasangan trading terbaik",
+    "ID": "Analisis pasar menemukan 5 pasangan trading terbaik:",
 }
 
 win = {
@@ -308,7 +309,7 @@ win = {
     "ES": "Ganancia",
     "AR": "ربح",
     "TR": "Kazanç",
-    "ID": "Menang",
+    "ID": "Kemenangan",
 }
 
 trade_result_types = {
@@ -317,7 +318,7 @@ trade_result_types = {
     "ES": ["Ganancia", "Pérdida"],
     "AR": ["ربح", "خسارة"],
     "TR": ["Kazanç", "Kayıp"],
-    "ID": ["Menang", "Kalah"],
+    "ID": ["Kemenangan", "Rugi"],
 }
 
 win_amount = {
@@ -325,8 +326,8 @@ win_amount = {
     "EN": "Please write the amount of your profit.",
     "ES": "Indica la cantidad de ganancia.",
     "AR": "اكتب مبلغ الربح",
-    "TR": "Lütfen kazancınızın miktarını yazın.",
-    "ID": "Tolong tuliskan jumlah keuntungan Anda.",
+    "TR": "Kazanç miktarını girin",
+    "ID": "Tulislah jumlah keuntungan Anda",
 }
 
 lose = {
@@ -335,7 +336,7 @@ lose = {
     "ES": "Pérdida",
     "AR": "خسارة",
     "TR": "Kayıp",
-    "ID": "Kalah",
+    "ID": "Rugi",
 }
 
 lose_confirm_refresh = {
@@ -361,8 +362,8 @@ wait_trading_done = {
     "EN": "While your trade is not yet completed, you cannot use new signals!",
     "ES": "Mientras tu operación no esté cerrada, no puedes usar nuevas señales!",
     "AR": "حتى اكتمال تداولك، لا يمكنك استخدام إشارات جديدة!",
-    "TR": "Ticaretiniz tamamlanmadıkça yeni sinyalleri kullanamazsınız!",
-    "ID": "Selama perdagangan Anda belum selesai, Anda tidak dapat menggunakan sinyal baru!",
+    "TR": "Ticaretiniz tamamlanmadan yeni sinyalleri kullanamazsınız!",
+    "ID": "Sampai perdagangan Anda selesai, Anda tidak dapat menggunakan sinyal baru!",
 }
 
 click_win_or_lose = {
@@ -379,8 +380,8 @@ for_pay = {
     "EN": "To get access to manual trading, you need to pay for a subscription worth $50. After making the payment, send your user ID ({user_id}) and a screenshot to the manager. Then you will have access to the manual trading function.\n(@bot_helpmanager)",
     "ES": "Para acceder al trading manual, necesitas pagar una suscripción de 50 dólares. Una vez hecho el pago, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
     "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك دفع اشتراك بقيمة 50 دولارًا. بعد القيام بالدفع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول. بعد ذلك، ستحصل على الوصول إلى وظيفة التداول اليدوي.\n(@bot_helpmanager)",
-    "TR": "Manuel ticaret erişimi almak için 50 dolar değerinde bir abonelik ödemeniz gerekiyor. Ödeme yaptıktan sonra kullanıcı ID'nizi ({user_id}) ve ekran görüntüsünü yöneticinize gönderin. Ardından manuel ticaret fonksiyonuna erişiminiz olacak.\n(@bot_helpmanager)",
-    "ID": "Untuk mendapatkan akses ke perdagangan manual, Anda perlu membayar langganan senilai $50. Setelah melakukan pembayaran, kirimkan ID pengguna Anda ({user_id}) dan tangkapan layar kepada manajer. Kemudian Anda akan mendapatkan akses ke fungsi perdagangan manual.\n(@bot_helpmanager)",
+    "TR": "Manuel ticarete erişim sağlamak için 50 dolar depozito yatırmanız gerekmektedir! Depozito yaptıktan sonra, kullanıcı kimliğinizi ve ekran görüntüsünü yöneticinize gönderin ({user_id}), ardından manuel ticaret özelliği sizin için aktif hale gelecektir.",
+    "ID": "Untuk mendapatkan akses ke perdagangan manual, Anda perlu melakukan deposit $50!\nSetelah Anda melakukan deposit, kirimkan ID ({user_id}) pengguna dan tangkapan layar ke manajer, maka fungsi perdagangan manual akan tersedia untuk Anda.",
 }
 
 
@@ -607,7 +608,7 @@ TRADER_TOOLS = {
         },
     },
     "TR": {
-        "Dövizler": {
+        "Para Birimleri": {
             "tools": v_tools,
             "time": tiime_options["TR"],
         },
@@ -616,7 +617,7 @@ TRADER_TOOLS = {
             "time": tiime_options["TR"],
             "image": "",
         },
-        "Emtia": {
+        " Emtia Ürünleri": {
             "tools": s_tools,
             "time": tiime_options["TR"],
             "image": "",
@@ -635,7 +636,7 @@ TRADER_TOOLS = {
             "tools": v_tools,
             "time": tiime_options["ID"],
         },
-        "Cryptocurrency": {
+        "Mata uang kripto": {
             "tools": c_tools,
             "time": tiime_options["ID"],
             "image": "",
@@ -655,4 +656,5 @@ TRADER_TOOLS = {
         },
     },
 }
+
 
