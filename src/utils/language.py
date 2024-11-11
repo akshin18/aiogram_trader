@@ -161,8 +161,8 @@ trade_result_question = {
     "EN": "What result did you get from your last trade ({trade_tool})?",
     "ES": "¿Cuál fue el resultado de tu última operación ({trade_tool})?",
     "AR": "ما هي النتيجة التي حصلت عليها في آخر تداول لك ({trade_tool})؟",
-    "TR": "Son işlemdeki sonucunuz ne oldu (название валютной пары)?",
-    "ID": "AApa hasil perdagangan terakhir (название валютной пары))?",
+    "TR": "Son işlemdeki sonucunuz ne oldu ({trade_tool})?",
+    "ID": "Apa hasil perdagangan terakhir ({trade_tool})?",
 }
 
 
@@ -282,7 +282,7 @@ auto_trading_question_count = {
     "ES": "Elige cuánto tiempo tienes para tu sesión de trading. (Con un depósito de hasta $50, puedes usar el bot dos veces al día)",
     "AR": "اختر كم من الوقت لديك لجلسة التداول؟ (مع إيداع يصل إلى 50 دولارًا، يمكنك استخدام البوت مرتين في اليوم)",
     "TR": "Ticaret seansı için ne kadar zamanınız var? (50 $ 'a kadar depozito tutarı ile botu günde iki kez kullanabilirsiniz)",
-    "ID": "Pilih berapa banyak waktu yang Anda miliki untuk sesi trading? Dengan jumlah setoran hingga$ 50, Anda dapat menggunakan bot dua kali sehari",
+    "ID": "Pilih berapa banyak waktu yang Anda miliki untuk sesi trading? Dengan jumlah setoran hingga $50, Anda dapat menggunakan bot dua kali sehari",
 }
 
 options = {
@@ -299,7 +299,7 @@ analise_found_5 = {
     "EN": "Market analysis found 5 best trading pairs:",
     "ES": "El análisis del mercado encontró 5 mejores pares de divisas:",
     "AR": "تحليل السوق وجد 5 أفضل أزواج تداول:",
-    "TR": "Analisis pasar menemukan 5 pasangan trading terbaik",
+    "TR": "Piyasa analizi en iyi 5 işlem çiftini buldu:",
     "ID": "Analisis pasar menemukan 5 pasangan trading terbaik:",
 }
 
@@ -380,7 +380,7 @@ for_pay = {
     "EN": "To get access to manual trading, you need to pay for a subscription worth $50. After making the payment, send your user ID ({user_id}) and a screenshot to the manager. Then you will have access to the manual trading function.\n(@bot_helpmanager)",
     "ES": "Para acceder al trading manual, necesitas pagar una suscripción de 50 dólares. Una vez hecho el pago, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
     "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك دفع اشتراك بقيمة 50 دولارًا. بعد القيام بالدفع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول. بعد ذلك، ستحصل على الوصول إلى وظيفة التداول اليدوي.\n(@bot_helpmanager)",
-    "TR": "Manuel ticarete erişim sağlamak için 50 dolar depozito yatırmanız gerekmektedir! Depozito yaptıktan sonra, kullanıcı kimliğinizi ve ekran görüntüsünü yöneticinize gönderin ({user_id}), ardından manuel ticaret özelliği sizin için aktif hale gelecektir.",
+    "TR": "Manuel ticarete erişim sağlamak için 50 dolar depozito yatırmanız gerekmektedir! Depozito yaptıktan sonra, kullanıcı kimliğinizi ve ekran görüntüsünü yöneticinize gönderin ({user_id}), ardından manuel ticaret özelliği sizin için aktif hale gelecektir.\n(@bot_helpmanager)",
     "ID": "Untuk mendapatkan akses ke perdagangan manual, Anda perlu melakukan deposit $50!\nSetelah Anda melakukan deposit, kirimkan ID ({user_id}) pengguna dan tangkapan layar ke manajer, maka fungsi perdagangan manual akan tersedia untuk Anda.",
 }
 
