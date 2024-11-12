@@ -74,12 +74,12 @@ you_paid = {
 }
 
 indicator_form = {
-    "RU": "💱Валютная пара:({trade_tools})\n⏳Время эксперации:({trade_time_str})\n\n\n✅ Бот рекомендует открывать торги на {trade_direction} \nВремя на использование сигнала (15 секунд)",
+    "RU": "💱Валютная пара:({trade_tools})\n⏳Время эксперации:({trade_time_str})\n\n\n✅ Бот рекомендует открывать торги на {trade_direction} \nВремя на использование сигнала: 15 секунд",
     "EN": "💱Currency Pair: ({trade_tools})\n⏳Expiration Time: ({trade_time_str})\n\n\n✅ The bot recommends opening trades for {trade_direction}\nTime to use the signal: 15 seconds",
     "ES": "💱Par de divisas: ({trade_tools})\n⏳Hora de expiración: ({trade_time_str})\n\n\n✅ El bot recomienda abrir operaciones al {trade_direction}\nTiempo para usar la señal: 15 segundos",
     "AR": "💱زوج العملات: ({trade_tools})\n⏳زمن إنتهاء الصلاحية: ({trade_time_str})\n\n\n✅ يوصي البوت بفتح صفقة علي {trade_direction}\nوقت استخدام الإشارة: 15 ثانية",
-    "TR": "💱 Döviz Çifti:\n⏳ ({trade_tools})\n\n✅ Bot, alım 📈  (satım 📉) yapmanızı öneriyor.\nSinyali kullanmak için süreniz (15 saniye)",
-    "ID": "💱Pasangan mata uang:\n⏳({trade_tools})\n✅Bot merekomendasikan pembukaan perdagangan untuk kenaikan 📈\n(penurunan 📉)\nWaktu untuk menggunakan sinyal (15 секунд)",
+    "TR": "💱 Döviz Çifti:\n⏳ ({trade_tools})\n\n✅ Bot, {trade_direction} yapmanızı öneriyor.\nSinyali kullanmak için süreniz 15 saniye",
+    "ID": "💱Pasangan mata uang:\n⏳({trade_tools})\n✅Bot merekomendasikan pembukaan perdagangan untuk {trade_direction}\nWaktu untuk menggunakan sinyal 15 detik",
 }
 
 lose_text = {
@@ -381,7 +381,7 @@ for_pay = {
     "ES": "Para acceder al trading manual, necesitas pagar una suscripción de 50 dólares. Una vez hecho el pago, envía tu ID de usuario ({user_id}) y una captura de pantalla al manager. Entonces tendrás acceso a la función de trading manual.\n(@bot_helpmanager)",
     "AR": "لتتمكن من الوصول إلى التداول اليدوي، يتعين عليك دفع اشتراك بقيمة 50 دولارًا. بعد القيام بالدفع، أرسل رمز المستخدم الخاص بك ({user_id}) ولقطة الشاشة إلى المسؤول. بعد ذلك، ستحصل على الوصول إلى وظيفة التداول اليدوي.\n(@bot_helpmanager)",
     "TR": "Manuel ticarete erişim sağlamak için 50 dolar depozito yatırmanız gerekmektedir! Depozito yaptıktan sonra, kullanıcı kimliğinizi ve ekran görüntüsünü yöneticinize gönderin ({user_id}), ardından manuel ticaret özelliği sizin için aktif hale gelecektir.\n(@bot_helpmanager)",
-    "ID": "Untuk mendapatkan akses ke perdagangan manual, Anda perlu melakukan deposit $50!\nSetelah Anda melakukan deposit, kirimkan ID ({user_id}) pengguna dan tangkapan layar ke manajer, maka fungsi perdagangan manual akan tersedia untuk Anda.",
+    "ID": "Untuk mendapatkan akses ke perdagangan manual, Anda perlu melakukan deposit $50!\nSetelah Anda melakukan deposit, kirimkan ID ({user_id}) pengguna dan tangkapan layar ke manajer, maka fungsi perdagangan manual akan tersedia untuk Anda.\n(@bot_helpmanager)",
 }
 
 
