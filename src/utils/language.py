@@ -151,7 +151,7 @@ trade_direction = {
     "EN": ["Decrease📉", "Increase📈"],
     "ES": ["Disminución📉", "Aumento📈"],
     "AR": ["الهبوط📉", "الصعود📈"],
-    "TR": ["Alım 📈  (Satım 📉)"],
+    "TR": ["Alım 📈",  "Satım 📉"],
     "ID": ["Kenaikan 📈", "Penurunan 📉"]
 
 }
