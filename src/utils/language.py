@@ -78,8 +78,8 @@ indicator_form = {
     "EN": "💱Currency Pair: ({trade_tools})\n⏳Expiration Time: ({trade_time_str})\n\n\n✅ The bot recommends opening trades for {trade_direction}\nTime to use the signal: 15 seconds",
     "ES": "💱Par de divisas: ({trade_tools})\n⏳Hora de expiración: ({trade_time_str})\n\n\n✅ El bot recomienda abrir operaciones al {trade_direction}\nTiempo para usar la señal: 15 segundos",
     "AR": "💱زوج العملات: ({trade_tools})\n⏳زمن إنتهاء الصلاحية: ({trade_time_str})\n\n\n✅ يوصي البوت بفتح صفقة علي {trade_direction}\nوقت استخدام الإشارة: 15 ثانية",
-    "TR": "💱 Döviz Çifti:\n⏳ ({trade_tools})\n\n✅ Bot, {trade_direction} yapmanızı öneriyor.\nSinyali kullanmak için süreniz 15 saniye",
-    "ID": "💱Pasangan mata uang:\n⏳({trade_tools})\n✅Bot merekomendasikan pembukaan perdagangan untuk {trade_direction}\nWaktu untuk menggunakan sinyal 15 detik",
+    "TR": "💱 Döviz Çifti: ⏳({trade_tools})\n✅ Bot, {trade_direction} yapmanızı öneriyor.\nSinyali kullanmak için süreniz 15 saniye",
+    "ID": "💱Pasangan mata uang: ⏳({trade_tools})\n✅Bot merekomendasikan pembukaan perdagangan untuk {trade_direction}\nWaktu untuk menggunakan sinyal 15 detik",
 }
 
 lose_text = {
