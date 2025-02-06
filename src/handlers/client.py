@@ -261,7 +261,7 @@ async def message_handler_main(message: Message, state: FSMContext):
     if user:
         if user.state == 1:
             await state.set_state(TraderId.trade_id)
-            await message.answer(language.send_trader_id[config.LANG])
+            await message.answer(language.for_pay[config.LANG])
         elif user.state == 2:
             menu = get_keyboard(language.trading_methods[config.LANG])
             await message.answer(language.menu[config.LANG], reply_markup=menu)
@@ -357,7 +357,7 @@ async def handle_trader_agree_auto(callback_query: CallbackQuery):
             return
         if user.state == 0:
             await callback_query.message.bot.send_message(
-                callback_query.from_user.id, language.send_trader_id[config.LANG]
+                callback_query.from_user.id, language.for_pay[config.LANG]
             )
             user.state = 1
             await user.save()
