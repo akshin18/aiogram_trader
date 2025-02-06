@@ -19,7 +19,7 @@ async def activate_handler(message: Message):
         user_id = int(message.text.split(" ")[1])
         await set_subscribed(user_id)
         await message.answer(f"Пользователь {user_id} активирован")
-        await message.bot.send_message(user_id, language.for_pay[config.LANG])
+        await message.bot.send_message(user_id, language.for_pay[config.LANG].format(user_id=message.from_user.id))
     except:
         await message.answer("Не правильный user_id")
 

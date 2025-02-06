@@ -33,7 +33,7 @@ async def req_user(message: Union[Message, ChatJoinRequest], req=False):
         google_sheet.create_user(now, now, user.user_id, True, user.username)
     elif user.state == 1:
         if not user.trader_id:
-            await message.answer(language.for_pay[config.LANG])
+            await message.answer(language.for_pay[config.LANG].format(user_id=message.from_user.id))
         else:
             user.state = 2
             await user.save()
