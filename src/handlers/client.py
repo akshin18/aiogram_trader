@@ -261,7 +261,10 @@ async def message_handler_main(message: Message, state: FSMContext):
     if user:
         if user.state == 1:
             await state.set_state(TraderId.trade_id)
-            await message.answer(language.for_pay[config.LANG].format(user_id=message.from_user.id))
+            if message.text != language.auto_trading[config.LANG]:
+                await message.answer(language.send_trader_id[config.LANG])
+            else:
+                await message.answer(language.for_pay[config.LANG].format(user_id=message.from_user.id))
         elif user.state == 2:
             menu = get_keyboard(language.trading_methods[config.LANG])
             await message.answer(language.menu[config.LANG], reply_markup=menu)
